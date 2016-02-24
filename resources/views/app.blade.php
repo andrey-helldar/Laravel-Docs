@@ -15,7 +15,7 @@
         <nav>
             <div class="container">
                 <div class="nav-wrapper">
-                    <a href="#" class="brand-logo">Laravel</a>
+                    <a href="/" class="brand-logo">Laravel</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li class="active"><a href="{{ route('docs', ['version'=>'5.2']) }}">5.2</a></li>
                         <li><a href="https://laravel.com/docs/5.1">5.1</a></li>
@@ -25,9 +25,23 @@
             </div>
         </nav>
 
-        <!-- Start: content -->
-        @yield('content')
-        <!-- End: content -->
+        <div class="container">
+            <div class="row">
+
+                <!-- Start: navbar -->
+                <div class="col s12 m4 l3">
+                    @include('navbars.'.str_replace('.','_',$version))
+                </div>
+                <!-- End: navbar -->
+
+                <!-- Start: content -->
+                <div class="col s12 m8 l9">
+                    @yield('content')
+                </div>
+                <!-- End: content -->
+
+            </div>
+        </div>
 
         <!--Import jQuery before materialize.js-->
         <script src="{{ elixir('js/lib.js') }}"></script>

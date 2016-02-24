@@ -22,15 +22,23 @@ class DocsController extends Controller
             return redirect()->route('docs', ['version' => config('settings.version', '5.2')]);
         }
 
+        $filename = sprintf("docs/%s/%s.md", $version, $page);
+
         // Check exiting file with translation
-        if (!\Storage::exists(sprintf("docs/%s/%s.md", $version, $page))) {
+        if (!\Storage::exists($filename)) {
             return redirect()->route('docs', ['version' => config('settings.version', '5.2')]);
         }
 
         // Reading file
-        $content = \Storage::get(sprintf("docs/%s/%s.md", $version, $page));
+//        $content = \Cache::remember(str_slug($filename), config('settings.cache'), function() use ($filename) {
+//                    return Markdown::convertToHtml(\Storage::get($filename));
+//                });
+        $content = str_replace("{{version}}", $version, \Storage::get($filename));
+        $content = Markdown::convertToHtml($content);
 
 //        return $content;
-        return view('doc')->with('content', Markdown::convertToHtml($content));
+        return view('doc')
+                        ->with('content', $content)
+                        ->with('version', $version);
     }
 }

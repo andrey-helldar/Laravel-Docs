@@ -9246,4 +9246,28 @@ body.parallax-demo footer {
         background-color: #eee;
         outline: none; }
 
+.collection {
+  margin: 0 0 1rem 0;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px solid #e0e0e0;
+  border-radius: 0px; }
+
+.collection-header h4 {
+  font-size: 1.3rem;
+  margin: 1rem 0 0.5rem 0; }
+
+.collection-item {
+  padding: 5px 10px 5px 30px !important;
+  border-bottom: none !important;
+  line-height: 1rem !important; }
+  .collection-item a {
+    font-size: 0.9rem;
+    line-height: 1rem !important;
+    color: #ee6e73;
+    transition: 0.2s; }
+    .collection-item a:hover {
+      color: #e62a31; }
+
 /*# sourceMappingURL=ui.css.map */

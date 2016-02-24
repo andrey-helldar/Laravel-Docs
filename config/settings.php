@@ -3,5 +3,12 @@
  * Actual settings for documentation
  */
 return [
-    'version' => '5.2'
+    /*
+     * Default version of documentation
+     */
+    'version' => '5.2',
+    /*
+     * Caching files in seconds
+     */
+    'cache'   => 60 * 60
 ];
