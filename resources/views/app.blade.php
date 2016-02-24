@@ -3,43 +3,34 @@
     <head>
         <title>Laravel</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import lib.css-->
+        <link rel="stylesheet" href="{{ elixir('css/ui.css') }}"  media="screen,projection"/>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
+        <nav>
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">Laravel</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li class="active"><a href="{{ route('docs', ['version'=>'5.2']) }}">5.2</a></li>
+                        <li><a href="https://laravel.com/docs/5.1">5.1</a></li>
+                        <li><a href="https://laravel.com/docs/5.0">5.0</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </nav>
+
+        <!-- Start: content -->
+        @yield('content')
+        <!-- End: content -->
+
+        <!--Import jQuery before materialize.js-->
+        <script src="{{ elixir('js/lib.js') }}"></script>
+        <script src="{{ elixir('js/ui.js') }}"></script>
     </body>
 </html>

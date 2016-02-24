@@ -23,9 +23,16 @@ elixir(function (mix) {
             .scripts([
                 'app.js'
             ], 'public/js/ui.js')
+            /*
+             * Copy resources to destination folder
+             */
             .copy('resources/assets/images', 'public/images')
             .copy('node_modules/materialize-css/font/material-design-icons', 'public/build/font')
             .copy('node_modules/materialize-css/font/roboto', 'public/build/font')
+            .copy('resources/docs', 'storage/app/docs')
+            /*
+             * Version control
+             */
             .version([
                 'css/ui.css',
                 'js/lib.js',
