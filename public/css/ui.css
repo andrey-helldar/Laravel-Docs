@@ -9246,6 +9246,21 @@ body.parallax-demo footer {
         background-color: #eee;
         outline: none; }
 
+/*
+ *  Global
+ */
+body {
+  background-color: #fff !important; }
+
+/*
+ *  Logotype
+ */
+.brand-logo {
+  background: transparent url("../../images/laravel-logo.png") no-repeat left center; }
+
+/*
+ *  Navigation
+ */
 .collection {
   margin: 0 0 1rem 0 !important;
   border-left: none !important;
@@ -9274,5 +9289,72 @@ body.parallax-demo footer {
     transition: 0.2s; }
     .collection-item a:hover {
       color: #e62a31; }
+
+/*
+ *  Content
+ */
+.content h1 {
+  font-size: 3rem;
+  font-weight: 300; }
+
+.content h2 {
+  font-size: 2.5rem;
+  font-weight: 400; }
+
+.content h3 {
+  font-size: 2rem;
+  font-weight: 400; }
+
+.content h4 {
+  font-size: 1.3rem;
+  font-weight: 500; }
+
+.content a {
+  color: #ee6e73;
+  transition: 0.2s; }
+  .content a:hover {
+    color: #e62a31; }
+
+.content ul li a {
+  font-weight: 600; }
+  .content ul li a:before {
+    text-rendering: optimizeLegibility;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    content: "\e7c3";
+    margin-right: 5px; }
+
+.content ul li ul {
+  padding-left: 20px; }
+  .content ul li ul li a {
+    font-weight: 400; }
+
+.content .content-list {
+  background-color: green; }
+
+.content pre {
+  height: auto;
+  background-color: #fafafa;
+  padding: 10px;
+  border-left: 2px solid #ee6e73;
+  font-size: 15px; }
+  .content pre code {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 15px; }
 
 /*# sourceMappingURL=ui.css.map */

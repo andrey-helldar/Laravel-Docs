@@ -35,7 +35,7 @@
                 <!-- End: navbar -->
 
                 <!-- Start: content -->
-                <div class="col s12 m8 l9">
+                <div class="col s12 m8 l9 content">
                     @yield('content')
                 </div>
                 <!-- End: content -->

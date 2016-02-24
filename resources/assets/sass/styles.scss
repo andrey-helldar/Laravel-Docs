@@ -2,6 +2,23 @@
 
 @import "node_modules/materialize-css/sass/ghpages-materialize.scss";
 
+/*
+ *  Global
+ */
+body {
+    background-color: #fff !important;
+}
+
+/*
+ *  Logotype
+ */
+.brand-logo {
+    background: transparent url('../../images/laravel-logo.png') no-repeat left center;
+}
+
+/*
+ *  Navigation
+ */
 .collection {
     margin: 0 0 1rem 0 !important;
     border-left: none !important;
@@ -38,4 +55,100 @@
             color: $primary-color-dark;
         }
     }
+}
+
+/*
+ *  Content
+ */
+.content {
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 300;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 400;
+    }
+
+    h3 {
+        font-size: 2rem;
+        font-weight: 400;
+    }
+
+    h4 {
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+
+
+    a {
+        color: $primary-color;
+        transition: 0.2s;
+
+        &:hover {
+            color: $primary-color-dark;
+        }
+    }
+
+    ul {
+        li {
+            a {
+                font-weight: 600;
+
+                &:before {
+                    text-rendering: optimizeLegibility;
+                    font-family: 'Material Icons';
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 24px;
+                    line-height: 1;
+                    letter-spacing: normal;
+                    text-transform: none;
+                    display: inline-block;
+                    white-space: nowrap;
+                    word-wrap: normal;
+                    direction: ltr;
+                    font-feature-settings: 'liga';
+                    -webkit-font-feature-settings: 'liga';
+                    -webkit-font-smoothing: antialiased;
+                    content: "\e7c3";
+                    margin-right: 5px;
+                }
+            }
+
+            ul {
+                padding-left: 20px;
+
+                li {
+                    a {
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+
+    .content-list {
+        background-color: green;
+    }
+
+    pre {
+        height: auto;
+        background-color: lighten($slider-bg-color-light, 10%);
+        padding: 10px;
+        border-left: 2px solid $primary-color;
+        font-size: 15px;
+
+        code {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+        }
+
+    }
+
 }
