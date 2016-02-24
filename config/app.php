@@ -156,6 +156,13 @@ return [
         LaraDoc\Providers\EventServiceProvider::class,
         LaraDoc\Providers\RouteServiceProvider::class,
 
+        /*
+         * My providers...
+         */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Laracasts\Generators\GeneratorsServiceProvider::class,
+
     ],
 
     /*
@@ -201,6 +208,11 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        /*
+         * My aliases
+         */
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
