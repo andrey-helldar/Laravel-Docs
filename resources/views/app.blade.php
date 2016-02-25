@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
-
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import lib.css-->
-        <link rel="stylesheet" href="{{ elixir('css/ui.css') }}"  media="screen,projection"/>
-
-        <!--Let browser know website is optimized for mobile-->
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <meta name="author" content="Andrey Helldar <helldar@ai-rus.com>" />
+
+        <title>Laravel документация на русском</title>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{{ elixir('css/ui.css') }}"  media="screen,projection"/>
+        <link rel="apple-touch-icon" href="/images/favicon.png">
+        <link rel="shortcut icon" href="/images/favicon.png" />
     </head>
     <body>
         <!-- Start: preloader -->
@@ -28,22 +32,33 @@
         </div>
         <!-- End: preloader -->
 
+        <!-- Start: navbar -->
+        <ul id="dropdownMore" class="dropdown-content">
+            <li><a href="https://laravel.com/docs/master/" target="_blank">Master</a></li>
+            <li><a href="https://laravel.com/docs/4.2/" target="_blank">4.2</a></li>
+        </ul>
+
         <nav>
             <div class="container">
                 <div class="nav-wrapper">
                     <a href="/" class="brand-logo">Laravel</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li class="active"><a href="{{ route('docs', ['version'=>'5.2']) }}">5.2</a></li>
+                        {!! $navbarTop or '' !!}
                         <li><a href="https://laravel.com/docs/5.1" target="_blank">5.1</a></li>
                         <li><a href="https://laravel.com/docs/5.0" target="_blank">5.0</a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdownMore">&nbsp;<i class="material-icons right">list</i></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <!-- End: navbar -->
 
         <div class="container">
-            <div class="row">
 
+            @if( view()->exists('navbars.'.str_replace('.','_',$version)) )
+            <div class="row">
                 <!-- Start: navbar -->
                 <div class="col s12 m3 l2">
                     @include('navbars.'.str_replace('.','_',$version))
@@ -55,8 +70,10 @@
                     @yield('content')
                 </div>
                 <!-- End: content -->
-
             </div>
+            @else
+            @yield('content')
+            @endif
         </div>
 
         <footer class="page-footer">

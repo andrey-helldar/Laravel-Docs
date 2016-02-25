@@ -27,6 +27,12 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
+        $this->app->view->composer('app', function($view) {
+            $view
+                    ->with('version', '0')
+                    ->with('year', date("Y") == "2016" ? "2016" : "2016-".date("Y"));
+        });
     }
 
     /**

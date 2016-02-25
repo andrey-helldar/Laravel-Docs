@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Actual settings for documentation
  */
@@ -9,10 +8,9 @@ return [
      */
     'version' => '5.2',
     /*
-     * Caching files in seconds
-     * 60                       1 minute
-     * 60 * 60 = 3600           1 hour
-     * 60 * 60 * 24 = 86400     1 day
+     * Caching files in minutes
+     * 60               1 hour
+     * 60 * 24 = 1440   1 day
      */
-    'cache' => 86400
+    'cache'   => 1440
 ];

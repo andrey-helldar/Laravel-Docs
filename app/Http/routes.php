@@ -21,6 +21,8 @@ Route::get('/docs', function () {
 //  https://laravel.com/docs/5.2
 Route::get('docs/{version}/{page?}', ['as' => 'docs', 'uses' => 'DocsController@page']);
 
+
+
 /*
   |--------------------------------------------------------------------------
   | Application Routes

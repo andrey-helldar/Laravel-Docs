@@ -5,6 +5,7 @@
 $primary-color-background: color("materialize-red", "lighten-5") !default;
 $text-color: color("grey", "darken-3") !default;
 $text-color-red: color("materialize-red", "lighten-1") !default;
+$text-color-light-red: color("materialize-red", "lighten-4") !default;
 
 $navbar-background: #FFF;
 
@@ -19,7 +20,7 @@ body {
  *  Logotype
  */
 .brand-logo {
-    background: transparent url('../../images/laravel-logo.png') no-repeat left center;
+    background: transparent url('../../images/laravel-logo.svg') no-repeat left center;
     background-size: 48px;
     color: $text-color-red !important;
     padding-left: 60px !important;
@@ -44,6 +45,26 @@ nav {
                     color: #fff;
                 }
             }
+        }
+    }
+}
+
+.dropdown-content {
+    &:hover {
+        li {
+            a {
+                color: $text-color-light-red;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    li {
+        a {
+            color: $primary-color;
         }
     }
 }

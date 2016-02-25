@@ -7,9 +7,18 @@ use LaraDoc\Http\Requests;
 use LaraDoc\Http\Controllers\Controller;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
-class DocsController extends Controller {
+class DocsController extends Controller
+{
 
-    public function page($version = null, $page = "installation") {
+    /**
+     * Show general page
+     *
+     * @param string $version
+     * @param string $page
+     * @return string
+     */
+    public function page($version = null, $page = "installation")
+    {
         // Check nulled params
         if (is_null($version)) {
             $version = config('settings.version', '5.2');
@@ -28,7 +37,7 @@ class DocsController extends Controller {
         }
 
         // Reading file
-        $content = \Cache::remember(str_slug($filename), config('settings.cache'), function() use ($filename, $version) {
+        $content = \Cache::remember(str_slug($filename), config('settings.cache', 60), function() use ($filename, $version) {
                     $content = str_replace("{{version}}", $version, \Storage::get($filename));
                     return Markdown::convertToHtml($content);
                 });
@@ -37,7 +46,37 @@ class DocsController extends Controller {
         return view('doc')
                         ->with('content', $content)
                         ->with('version', $version)
-                        ->with('year', date("Y") == "2016" ? "2016" : "2016-" . date("Y"));
+                        ->with('navbarTop', $this->topmenu($version));
     }
 
+    /**
+     * Get directories names for show top menu
+     *
+     * @param string $version
+     * @return string
+     */
+    private function topmenu($version = null)
+    {
+        if (is_null($version)) {
+            $version = config('settings.version', '5.2');
+        }
+
+        $directories = \Cache::remember("topmenu", config('settings.cache', 60), function() use ($version) {
+                    $directories = str_replace('docs/', '', \Storage::directories('docs'));
+                    arsort($directories);
+
+                    // Check exists of "installation.md"
+                    foreach ($directories as $key => $dir) {
+                        if (!\Storage::exists(sprintf("docs/%s/installation.md", $dir))) {
+                            unset($directories[$key]);
+                        }
+                    }
+
+                    return $directories;
+                });
+
+        return view('navbars.top')
+                        ->with('version', $version)
+                        ->with('directories', $directories);
+    }
 }
