@@ -12,14 +12,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        <!-- Start: preloader -->
+        <div class="splash">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-red-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: preloader -->
+
         <nav>
             <div class="container">
                 <div class="nav-wrapper">
                     <a href="/" class="brand-logo">Laravel</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li class="active"><a href="{{ route('docs', ['version'=>'5.2']) }}">5.2</a></li>
-                        <li><a href="https://laravel.com/docs/5.1">5.1</a></li>
-                        <li><a href="https://laravel.com/docs/5.0">5.0</a></li>
+                        <li><a href="https://laravel.com/docs/5.1" target="_blank">5.1</a></li>
+                        <li><a href="https://laravel.com/docs/5.0" target="_blank">5.0</a></li>
                     </ul>
                 </div>
             </div>
@@ -29,13 +45,13 @@
             <div class="row">
 
                 <!-- Start: navbar -->
-                <div class="col s12 m4 l3">
+                <div class="col s12 m3 l2">
                     @include('navbars.'.str_replace('.','_',$version))
                 </div>
                 <!-- End: navbar -->
 
                 <!-- Start: content -->
-                <div class="col s12 m8 l9 content">
+                <div class="col s12 m9 l10 content">
                     @yield('content')
                 </div>
                 <!-- End: content -->

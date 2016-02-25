@@ -2,6 +2,12 @@
 
 @import "node_modules/materialize-css/sass/ghpages-materialize.scss";
 
+$primary-color-background: color("materialize-red", "lighten-5") !default;
+$text-color: color("grey", "darken-3") !default;
+$text-color-red: color("materialize-red", "lighten-1") !default;
+
+$navbar-background: #FFF;
+
 /*
  *  Global
  */
@@ -14,6 +20,32 @@ body {
  */
 .brand-logo {
     background: transparent url('../../images/laravel-logo.png') no-repeat left center;
+    background-size: 48px;
+    color: $text-color-red !important;
+    padding-left: 60px !important;
+    font-weight: 300;
+    font-size: 1.5rem !important;
+}
+
+/*
+ *  Navbar
+ */
+nav {
+    background-color: $navbar-background;
+
+    ul {
+        li {
+            a {
+                color: $primary-color;
+            }
+
+            &.active, &:hover {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+    }
 }
 
 /*
@@ -131,7 +163,17 @@ body {
     }
 
     .content-list {
-        background-color: green;
+        white-space: pre-wrap;
+        margin-left: 30px;
+        padding: 0px;
+    }
+
+    code {
+        font-size: 15px;
+        margin: 0 3px;
+        padding: 2px;
+        background-color: lighten($slider-bg-color-light, 10%);
+        color: $primary-color;
     }
 
     pre {
@@ -145,10 +187,31 @@ body {
             height: 100%;
             width: 100%;
             margin: 0;
-            padding: 0;
-            font-size: 15px;
+            padding: 0 5px;
+            color: $text-color;
         }
 
     }
 
+}
+
+/*
+ *  Splash screen
+ */
+.splash {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: rgba(lighten($primary-color-background, 10%), .85);
+    text-align: center;
+    vertical-align: middle;
+
+    .preloader-wrapper {
+        position: absolute;
+        top: 49%;
+        left: 50%;
+    }
 }

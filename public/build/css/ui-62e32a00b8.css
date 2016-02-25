@@ -9256,7 +9256,22 @@ body {
  *  Logotype
  */
 .brand-logo {
-  background: transparent url("../../images/laravel-logo.png") no-repeat left center; }
+  background: transparent url("../../images/laravel-logo.png") no-repeat left center;
+  background-size: 48px;
+  color: #ea454b !important;
+  padding-left: 60px !important;
+  font-weight: 300;
+  font-size: 1.5rem !important; }
+
+/*
+ *  Navbar
+ */
+nav {
+  background-color: #FFF; }
+  nav ul li a {
+    color: #ee6e73; }
+  nav ul li.active a, nav ul li:hover a {
+    color: #fff; }
 
 /*
  *  Navigation
@@ -9342,7 +9357,16 @@ body {
     font-weight: 400; }
 
 .content .content-list {
-  background-color: green; }
+  white-space: pre-wrap;
+  margin-left: 30px;
+  padding: 0px; }
+
+.content code {
+  font-size: 15px;
+  margin: 0 3px;
+  padding: 2px;
+  background-color: #fafafa;
+  color: #ee6e73; }
 
 .content pre {
   height: auto;
@@ -9354,7 +9378,25 @@ body {
     height: 100%;
     width: 100%;
     margin: 0;
-    padding: 0;
-    font-size: 15px; }
+    padding: 0 5px;
+    color: #424242; }
+
+/*
+ *  Splash screen
+ */
+.splash {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  vertical-align: middle; }
+  .splash .preloader-wrapper {
+    position: absolute;
+    top: 49%;
+    left: 50%; }
 
 /*# sourceMappingURL=ui.css.map */

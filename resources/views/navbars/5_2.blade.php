@@ -3,7 +3,7 @@
     <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'releases']) }}">Release Notes</a></li>
     <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'upgrade']) }}">Upgrade Guide</a></li>
     <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'contributions']) }}">Contribution Guide</a></li>
-    <li class="collection-item"><a href="https://laravel.com/api/5.2">API Documentation</a></li>
+    <li class="collection-item"><a href="https://laravel.com/api/5.2" target="_blank">API Documentation</a></li>
 
     <li class="collection-header"><h4>Setup</h4></li>
     <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'installation']) }}">Installation</a></li>

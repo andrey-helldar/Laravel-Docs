@@ -1,1 +1,1 @@
-{"version":3,"sources":["app.js"],"names":[],"mappings":"AAAA;AACA;AACA","file":"ui.js","sourcesContent":["$(function () {\n\n});"],"sourceRoot":"/source/"}
+{"version":3,"sources":["app.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"ui.js","sourcesContent":["$(function () {\r\n    $(window).load(function () {\r\n        // Preloader\r\n        $('.splash').hide();\r\n    });\r\n\r\n    $('.content code').addClass('z-depth-1');\r\n    $('.content pre code').removeClass('z-depth-1');\r\n});"],"sourceRoot":"/source/"}
