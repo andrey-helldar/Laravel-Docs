@@ -7,11 +7,9 @@ use LaraDoc\Http\Requests;
 use LaraDoc\Http\Controllers\Controller;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
-class DocsController extends Controller
-{
+class DocsController extends Controller {
 
-    public function page($version = null, $page = "installation")
-    {
+    public function page($version = null, $page = "installation") {
         // Check nulled params
         if (is_null($version)) {
             $version = config('settings.version', '5.2');
@@ -22,7 +20,7 @@ class DocsController extends Controller
             return redirect()->route('docs', ['version' => config('settings.version', '5.2')]);
         }
 
-        $filename = sprintf("docs/%s/%s.md", $version, $page);
+        $filename = sprintf("docs/%s/%s.md", $version, str_slug($page));
 
         // Check exiting file with translation
         if (!\Storage::exists($filename)) {
@@ -39,6 +37,8 @@ class DocsController extends Controller
 //        return $content;
         return view('doc')
                         ->with('content', $content)
-                        ->with('version', $version);
+                        ->with('version', $version)
+                        ->with('year', date("Y") == "2016" ? "2016" : "2016-" . date("Y"));
     }
+
 }

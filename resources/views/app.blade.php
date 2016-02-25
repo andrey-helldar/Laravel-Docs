@@ -4,7 +4,7 @@
         <title>Laravel</title>
 
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import lib.css-->
         <link rel="stylesheet" href="{{ elixir('css/ui.css') }}"  media="screen,projection"/>
 
@@ -58,6 +58,31 @@
 
             </div>
         </div>
+
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="">Документация фреймворка Laravel</h5>
+                        <p class="grey-text">Полный и актуальный перевод оригинальной документации для фреймворка Laravel 5 версии и выше.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="">Ссылки</h5>
+                        <ul>
+                            <li><a class="grey-text" target="_blank" href="http://ai-rus.com">AI RUS - Professional IT support</a></li>
+                            <li><a class="grey-text" target="_blank" href="https://laravel.com">Laravel Official</a></li>
+                            <li><a class="grey-text" target="_blank" href="https://gitter.im/LaravelRUS/chat">Чат русскоязычного сообщества</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container white-text">
+                    © {{ $year }} AI RUS - Professional IT support
+                    <a class="white-text right" href="#"><i class="material-icons tiny">expand_less</i> Наверх</a>
+                </div>
+            </div>
+        </footer>
 
         <!--Import jQuery before materialize.js-->
         <script src="{{ elixir('js/lib.js') }}"></script>

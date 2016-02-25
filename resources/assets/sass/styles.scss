@@ -130,23 +130,11 @@ nav {
                 font-weight: 600;
 
                 &:before {
-                    text-rendering: optimizeLegibility;
-                    font-family: 'Material Icons';
-                    font-weight: normal;
-                    font-style: normal;
-                    font-size: 24px;
-                    line-height: 1;
-                    letter-spacing: normal;
-                    text-transform: none;
-                    display: inline-block;
-                    white-space: nowrap;
-                    word-wrap: normal;
-                    direction: ltr;
-                    font-feature-settings: 'liga';
-                    -webkit-font-feature-settings: 'liga';
-                    -webkit-font-smoothing: antialiased;
-                    content: "\e7c3";
+                    font-weight: 300;
+                    font-size: 1rem;
+                    content: "#";
                     margin-right: 5px;
+                    color: lighten($primary-color-light, 5%);
                 }
             }
 
@@ -213,5 +201,28 @@ nav {
         position: absolute;
         top: 49%;
         left: 50%;
+    }
+}
+
+/*
+ *  Footer
+ */
+.page-footer {
+    padding:0px;
+    background-color: #fff !important;
+    border-top: 2px solid $primary-color;
+
+    .footer-copyright {
+        background-color: $primary-color !important;
+    }
+
+    .row {
+        a {
+            transition: 0.2s;
+
+            &:hover {
+                color: $primary-color-dark !important;
+            }
+        }
     }
 }
