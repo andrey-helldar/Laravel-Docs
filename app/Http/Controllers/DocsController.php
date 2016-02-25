@@ -28,13 +28,12 @@ class DocsController extends Controller {
         }
 
         // Reading file
-//        $content = \Cache::remember(str_slug($filename), config('settings.cache'), function() use ($filename) {
-//                    return Markdown::convertToHtml(\Storage::get($filename));
-//                });
-        $content = str_replace("{{version}}", $version, \Storage::get($filename));
-        $content = Markdown::convertToHtml($content);
+        $content = \Cache::remember(str_slug($filename), config('settings.cache'), function() use ($filename, $version) {
+                    $content = str_replace("{{version}}", $version, \Storage::get($filename));
+                    return Markdown::convertToHtml($content);
+                });
 
-//        return $content;
+        // Return result
         return view('doc')
                         ->with('content', $content)
                         ->with('version', $version)
