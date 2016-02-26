@@ -51,6 +51,7 @@
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="https://github.com/andrey-helldar/LaraDoc" target="_blank">Переведено: 1 из 58</a></li>
                         {!! $navbarTop or '<li><a href="'.route('docs', ['version'=>config('settings.version')]).'">'.config('settings.version').'</a></li>' !!}
                         <li><a href="https://laravel.com/docs/5.1" target="_blank">5.1</a></li>
                         <li><a href="https://laravel.com/docs/5.0" target="_blank">5.0</a></li>
@@ -87,6 +88,10 @@
                     <div class="col l6 s12">
                         <h5 class="">Документация фреймворка Laravel</h5>
                         <p class="grey-text">Полный и актуальный перевод оригинальной документации для фреймворка Laravel на русский язык.</p>
+                        <p class="grey-text">
+                            Мы принимаем любую помощь при переводе текстов. Для этого отправьте пул-реквест в
+                            <a href="https://github.com/andrey-helldar/LaraDoc" target="_blank">репозиторий LaraDoc</a>.
+                        </p>
                     </div>
                     <div class="col l4 offset-l2 s12">
                         <h5 class="">Ресурсы</h5>
