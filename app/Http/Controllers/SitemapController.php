@@ -23,10 +23,10 @@ class SitemapController extends Controller
     {
         $url = explode("/", Request::getUri());
 
-        return Cache::remember(str_slug($url[2].'sitemap'), config('settings.cache', 60), function() {
+        Header('Content-type: text/xml');
+        print(Cache::remember(str_slug($url[2].'sitemap'), config('settings.cache', 60), function() {
                     $directories = Storage::directories('docs');
-                    $resources   = [];
-                    $resources[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+                    $xml         = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" />');
 
                     foreach ($directories as $dir) {
                         if ($dir != "docs/nbproject") {
@@ -34,19 +34,17 @@ class SitemapController extends Controller
 
                             if (count($files) > 0) {
                                 foreach ($files as $file) {
-                                    $resources[] = '<url>';
-                                    $resources[] = '<loc>'.url(substr($file, 0, count($file) - 4)).'</loc>';
-                                    $resources[] = '<lastmod>'.date("Y-m-d", Storage::lastModified($file)).'</lastmod>';
-                                    $resources[] = '<priority>'.config('settings.sitemap_priority', '0.5').'</priority>';
-                                    $resources[] = '</url>';
+                                    $resource = $xml->addChild('url');
+                                    $resource->addChild('loc', url(substr($file, 0, count($file) - 4)));
+                                    $resource->addChild('lastmod', date("Y-m-d", Storage::lastModified($file)));
+                                    $resource->addChild('changefreq', 'daily');
+                                    $resource->addChild('priority', config('settings.sitemap_priority', '0.8'));
                                 }
                             }
                         }
                     }
 
-                    $resources[] = '</urlset>';
-
-                    return implode('', $resources);
-                });
+                    return $xml->asXML();
+                }));
     }
 }
