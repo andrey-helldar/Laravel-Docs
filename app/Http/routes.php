@@ -1,4 +1,5 @@
 <?php
+
 /*
   |--------------------------------------------------------------------------
   | Routes File
@@ -14,13 +15,11 @@ Route::get('/', function () {
     return redirect()->route('docs', ['version' => config('settings.version', '5.2')]);
 });
 
-Route::get('/docs', function () {
+Route::get('docs', function () {
     return redirect()->route('docs', ['version' => config('settings.version', '5.2')]);
 });
 
-//  https://laravel.com/docs/5.2
 Route::get('docs/{version}/{page?}', ['as' => 'docs', 'uses' => 'DocsController@page']);
-
 
 
 /*
