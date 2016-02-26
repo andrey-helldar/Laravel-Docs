@@ -1,47 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Be right back.</title>
+@extends('app')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Be right back.</div>
-            </div>
-        </div>
-    </body>
-</html>
+@section('content')
+<div class="error-page">
+    <h3 class="red-text">Шеф! Усё пропало!</h3>
+    <p class="flow-text">Говорят шлюз - не настоящий!</p>
+    <p class="flow-text">
+        <a class="waves-effect waves-light btn" href="/">На главную</a>
+    </p>
+</div>
+@endsection

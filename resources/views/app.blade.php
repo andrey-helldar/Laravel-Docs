@@ -45,7 +45,7 @@
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        {!! $navbarTop or '' !!}
+                        {!! $navbarTop or '<li><a href="'.route('docs', ['version'=>config('settings.version')]).'">'.config('settings.version').'</a></li>' !!}
                         <li><a href="https://laravel.com/docs/5.1" target="_blank">5.1</a></li>
                         <li><a href="https://laravel.com/docs/5.0" target="_blank">5.0</a></li>
                         <li><a class="dropdown-button" href="#!" data-activates="dropdownMore">&nbsp;<i class="material-icons right">list</i></a></li>
@@ -56,7 +56,6 @@
         <!-- End: navbar -->
 
         <div class="container">
-
             @if( view()->exists('navbars.'.str_replace('.','_',$version)) )
             <div class="row">
                 <!-- Start: navbar -->

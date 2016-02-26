@@ -5,8 +5,8 @@ namespace LaraDoc\Providers;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class RouteServiceProvider extends ServiceProvider
-{
+class RouteServiceProvider extends ServiceProvider {
+
     /**
      * This namespace is applied to the controller routes in your routes file.
      *
@@ -22,16 +22,18 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function boot(Router $router)
-    {
+    public function boot(Router $router) {
         //
 
         parent::boot($router);
 
         $this->app->view->composer('app', function($view) {
+            $version = explode("/", \Request::getUri());
+            $version = end($version);
+
             $view
-                    ->with('version', '0')
-                    ->with('year', date("Y") == "2016" ? "2016" : "2016-".date("Y"));
+                    ->with('version', $version)
+                    ->with('year', date("Y") == "2016" ? "2016" : "2016-" . date("Y"));
         });
     }
 
@@ -41,10 +43,10 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function map(Router $router)
-    {
+    public function map(Router $router) {
         $router->group(['namespace' => $this->namespace], function ($router) {
             require app_path('Http/routes.php');
         });
     }
+
 }

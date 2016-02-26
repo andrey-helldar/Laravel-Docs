@@ -45,7 +45,6 @@ class DocsController extends Controller
         // Return result
         return view('doc')
                         ->with('content', $content)
-                        ->with('version', $version)
                         ->with('navbarTop', $this->topmenu($version));
     }
 

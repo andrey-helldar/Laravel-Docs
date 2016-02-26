@@ -247,3 +247,22 @@ nav {
         }
     }
 }
+
+/*
+ *  Error pages
+ */
+.error-page {
+    margin: 20px 0;
+    background: transparent url('../../images/servicesbot.png') no-repeat left center;
+    min-width: 550px;
+    min-height: 358px;
+    padding:30px 0 0 490px;
+
+    @media screen and (max-width: 839px) {
+        margin: 10px 0;
+        background: transparent !important;
+        min-width: 200px;
+        min-height: 10px;
+        padding: 0;
+    }
+}
