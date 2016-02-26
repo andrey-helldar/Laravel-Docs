@@ -86,14 +86,16 @@
                 <div class="row">
                     <div class="col l6 s12">
                         <h5 class="">Документация фреймворка Laravel</h5>
-                        <p class="grey-text">Полный и актуальный перевод оригинальной документации для фреймворка Laravel 5 версии и выше.</p>
+                        <p class="grey-text">Полный и актуальный перевод оригинальной документации для фреймворка Laravel на русский язык.</p>
                     </div>
                     <div class="col l4 offset-l2 s12">
-                        <h5 class="">Ссылки</h5>
+                        <h5 class="">Ресурсы</h5>
                         <ul>
                             <li><a class="grey-text" target="_blank" href="http://ai-rus.com">AI RUS - Professional IT support</a></li>
-                            <li><a class="grey-text" target="_blank" href="https://laravel.com">Laravel Official</a></li>
+                            <li><a class="grey-text" target="_blank" href="https://laravel.com">Официальный сайт Laravel</a></li>
+                            <li><a class="grey-text" target="_blank" href="https://laravel.io">Официальный форум Laravel</a></li>
                             <li><a class="grey-text" target="_blank" href="https://gitter.im/LaravelRUS/chat">Чат русскоязычного сообщества</a></li>
+                            <li><a class="grey-text" target="_blank" href="http://packalyst.com">Пакеты composer Laravel</a></li>
                         </ul>
                     </div>
                 </div>
