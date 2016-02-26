@@ -29,15 +29,17 @@ class SitemapController extends Controller
                     $resources[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
                     foreach ($directories as $dir) {
-                        $files = Storage::files($dir);
+                        if ($dir != "docs/nbproject") {
+                            $files = Storage::files($dir);
 
-                        if (count($files) > 0) {
-                            foreach ($files as $file) {
-                                $resources[] = '<url>';
-                                $resources[] = '<loc>'.url(substr($file, 0, count($file) - 4)).'</loc>';
-                                $resources[] = '<lastmod>'.date("Y-m-d", Storage::lastModified($file)).'</lastmod>';
-                                $resources[] = '<priority>'.config('settings.sitemap_priority', '0.5').'</priority>';
-                                $resources[] = '</url>';
+                            if (count($files) > 0) {
+                                foreach ($files as $file) {
+                                    $resources[] = '<url>';
+                                    $resources[] = '<loc>'.url(substr($file, 0, count($file) - 4)).'</loc>';
+                                    $resources[] = '<lastmod>'.date("Y-m-d", Storage::lastModified($file)).'</lastmod>';
+                                    $resources[] = '<priority>'.config('settings.sitemap_priority', '0.5').'</priority>';
+                                    $resources[] = '</url>';
+                                }
                             }
                         }
                     }
