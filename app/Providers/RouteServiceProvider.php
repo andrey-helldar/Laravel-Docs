@@ -30,8 +30,14 @@ class RouteServiceProvider extends ServiceProvider {
         $this->app->view->composer('app', function($view) {
             $version = explode("/", \Request::getUri());
 
+            if (isset($version[4])) {
+                $version = is_float(floatval($version[4])) ? $version[4] : 0;
+            } else {
+                $version = 0;
+            }
+
             $view
-                    ->with('version', $version[4])
+                    ->with('version', $version)
                     ->with('year', date("Y") == "2016" ? "2016" : "2016-" . date("Y"));
         });
     }
