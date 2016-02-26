@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 /public/storage
+/resources/docs/nbproject
 /nbproject
 Homestead.yaml
 Homestead.json
