@@ -22,12 +22,13 @@ class DocsController extends Controller {
      */
     public function page($version = null, $page = "installation") {
         // Redirect to correct domain
-//        $url = explode("/", \Request::getUri());
-//        if ($url[2] != "laravel-doc.ru" && $url[2] != "docs.local") {
-//            $url[2] = "laravel-doc.ru";
-//            $url = implode('/', $url);
-//            return redirect()->away($url);
-//        }
+        $url = explode("/", \Request::getUri());
+        if ($url[2] != "laravel-doc.ru" && $url[2] != "docs.local") {
+            $url[2] = "laravel-doc.ru";
+            $url = implode('/', $url);
+            return redirect()->away($url);
+        }
+		
         // Check nulled params
         if (is_null($version)) {
             $version = config('settings.version', '5.2');

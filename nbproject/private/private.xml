@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/OpenServer/domains/docs.local/app/Http/Controllers/DocsController.php</file>
-            <file>file:/F:/OpenServer/domains/docs.local/app/Http/routes.php</file>
-            <file>file:/F:/OpenServer/domains/docs.local/app/Providers/RouteServiceProvider.php</file>
-            <file>file:/F:/OpenServer/domains/docs.local/resources/views/app.blade.php</file>
-            <file>file:/F:/OpenServer/domains/docs.local/resources/assets/sass/styles.scss</file>
-            <file>file:/F:/OpenServer/domains/docs.local/gulpfile.js</file>
-            <file>file:/F:/OpenServer/domains/docs.local/resources/views/navbars/top.blade.php</file>
-            <file>file:/F:/OpenServer/domains/docs.local/resources/views/errors/404.blade.php</file>
+            <file>file:/D:/Helldar/OpenServer/domains/docs.local/resources/views/app.blade.php</file>
+            <file>file:/D:/Helldar/OpenServer/domains/docs.local/app/Http/routes.php</file>
+            <file>file:/D:/Helldar/OpenServer/domains/docs.local/app/Providers/RouteServiceProvider.php</file>
+            <file>file:/D:/Helldar/OpenServer/domains/docs.local/app/Http/Controllers/DocsController.php</file>
+            <file>file:/D:/Helldar/OpenServer/domains/docs.local/resources/assets/sass/styles.scss</file>
+            <file>file:/D:/Helldar/OpenServer/domains/docs.local/resources/assets/js/app.js</file>
         </group>
     </open-files>
 </project-private>
