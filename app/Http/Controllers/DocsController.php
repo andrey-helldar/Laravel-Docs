@@ -2,10 +2,14 @@
 
 namespace LaraDoc\Http\Controllers;
 
-use Illuminate\Http\Request;
-use LaraDoc\Http\Requests;
-use LaraDoc\Http\Controllers\Controller;
+use Cache;
 use GrahamCampbell\Markdown\Facades\Markdown;
+use LaraDoc\Http\Controllers\Controller;
+use Storage;
+use function config;
+use function redirect;
+use function str_slug;
+use function view;
 
 class DocsController extends Controller {
 
@@ -24,27 +28,26 @@ class DocsController extends Controller {
 //            $url = implode('/', $url);
 //            return redirect()->away($url);
 //        }
-
         // Check nulled params
         if (is_null($version)) {
             $version = config('settings.version', '5.2');
         }
 
         // Check exiting folder with translations
-        if (!\Storage::exists(sprintf("docs/%s", $version))) {
+        if (!Storage::exists(sprintf("docs/%s", $version))) {
             return redirect()->route('docs', ['version' => config('settings.version', '5.2')]);
         }
 
         $filename = sprintf("docs/%s/%s.md", $version, str_slug($page));
 
         // Check exiting file with translation
-        if (!\Storage::exists($filename)) {
+        if (!Storage::exists($filename)) {
             return redirect()->route('docs', ['version' => config('settings.version', '5.2')]);
         }
 
         // Reading file
-        $content = \Cache::remember(str_slug($filename), config('settings.cache', 60), function() use ($filename, $version) {
-                    $content = str_replace("{{version}}", $version, \Storage::get($filename));
+        $content = Cache::remember(str_slug($filename), config('settings.cache', 60), function() use ($filename, $version) {
+                    $content = str_replace("{{version}}", $version, Storage::get($filename));
                     return Markdown::convertToHtml($content);
                 });
 
@@ -65,13 +68,13 @@ class DocsController extends Controller {
             $version = config('settings.version', '5.2');
         }
 
-        $directories = \Cache::remember("topmenu", config('settings.cache', 60), function() use ($version) {
-                    $directories = str_replace('docs/', '', \Storage::directories('docs'));
+        $directories = Cache::remember("topmenu", config('settings.cache', 60), function() use ($version) {
+                    $directories = str_replace('docs/', '', Storage::directories('docs'));
                     arsort($directories);
 
                     // Check exists of "installation.md"
                     foreach ($directories as $key => $dir) {
-                        if (!\Storage::exists(sprintf("docs/%s/installation.md", $dir))) {
+                        if (!Storage::exists(sprintf("docs/%s/installation.md", $dir))) {
                             unset($directories[$key]);
                         }
                     }
