@@ -12,5 +12,9 @@ return [
      * 60               1 hour
      * 60 * 24 = 1440   1 day
      */
-    'cache'   => 1440
+    'cache'   => 1440,
+    /*
+     * Sitemap default priority
+     */
+    'sitemap_priority' => 0.5,
 ];
