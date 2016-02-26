@@ -2,9 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="alternate" hreflang="ru" href="http://laravel-doc.ru" />
+        <link rel="alternate" hreflang="ru" href="http://laradoc.ru" />
+        <link rel="alternate" hreflang="en" href="https://laravel.com/docs" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="google-site-verification" content="-owvDEW1swRom3qQ-xiW9s4kugNAeicaJAi9z9PPBcs" />
 
         <meta name="author" content="Andrey Helldar <helldar@ai-rus.com>" />
 

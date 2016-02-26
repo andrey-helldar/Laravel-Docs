@@ -11,7 +11,8 @@ use function redirect;
 use function str_slug;
 use function view;
 
-class DocsController extends Controller {
+class DocsController extends Controller
+{
 
     /**
      * Show general page
@@ -20,15 +21,16 @@ class DocsController extends Controller {
      * @param string $page
      * @return string
      */
-    public function page($version = null, $page = "installation") {
+    public function page($version = null, $page = "installation")
+    {
         // Redirect to correct domain
         $url = explode("/", \Request::getUri());
         if ($url[2] != "laravel-doc.ru" && $url[2] != "docs.local") {
             $url[2] = "laravel-doc.ru";
-            $url = implode('/', $url);
+            $url    = implode('/', $url);
             return redirect()->away($url);
         }
-		
+
         // Check nulled params
         if (is_null($version)) {
             $version = config('settings.version', '5.2');
@@ -64,12 +66,13 @@ class DocsController extends Controller {
      * @param string $version
      * @return string
      */
-    private function topmenu($version = null) {
+    private function topmenu($version = null)
+    {
         if (is_null($version)) {
             $version = config('settings.version', '5.2');
         }
 
-        $directories = Cache::remember("topmenu", config('settings.cache', 60), function() use ($version) {
+        $directories = Cache::remember("topmenu", config('settings.cache', 60), function() {
                     $directories = str_replace('docs/', '', Storage::directories('docs'));
                     arsort($directories);
 
@@ -87,5 +90,4 @@ class DocsController extends Controller {
                         ->with('version', $version)
                         ->with('directories', $directories);
     }
-
 }

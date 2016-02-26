@@ -1,5 +1,4 @@
 <?php
-
 /*
   |--------------------------------------------------------------------------
   | Routes File
@@ -20,6 +19,9 @@ Route::get('docs', function () {
 });
 
 Route::get('docs/{version}/{page?}', ['as' => 'docs', 'uses' => 'DocsController@page']);
+
+// Sitemap
+Route::get('sitemap.xml', ['as' => 'sitemap', 'uses' => 'SitemapController@map']);
 
 
 /*
