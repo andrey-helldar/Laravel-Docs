@@ -29,10 +29,9 @@ class RouteServiceProvider extends ServiceProvider {
 
         $this->app->view->composer('app', function($view) {
             $version = explode("/", \Request::getUri());
-            $version = end($version);
 
             $view
-                    ->with('version', $version)
+                    ->with('version', $version[4])
                     ->with('year', date("Y") == "2016" ? "2016" : "2016-" . date("Y"));
         });
     }

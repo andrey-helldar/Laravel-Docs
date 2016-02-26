@@ -201,7 +201,20 @@ nav {
         }
 
     }
+}
 
+/*
+ *  Blockquote
+ */
+blockquote {
+    background: lighten($error-color, 10%);
+    color: #fff;
+    border-left: none;
+    padding: 3px 20px;
+
+    p {
+        color: #fff !important;
+    }
 }
 
 /*
