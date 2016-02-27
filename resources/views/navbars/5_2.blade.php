@@ -1,71 +1,71 @@
 <ul class="collection with-header">
-    <li class="collection-header"><h4>Prologue</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'releases']) }}">Release Notes</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'upgrade']) }}">Upgrade Guide</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'contributions']) }}">Contribution Guide</a></li>
-    <li class="collection-item"><a href="https://laravel.com/api/5.2" target="_blank">API Documentation</a></li>
+    <li class="collection-header"><h4>Пролог</h4></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'releases']) }}">Примечания</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'upgrade']) }}">Руководство по обновлению</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'contributions']) }}">Участие в разработке</a></li>
+    <li class="collection-item"><a href="https://laravel.com/api/5.2" target="_blank">Документация API</a></li>
 
-    <li class="collection-header"><h4>Setup</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'installation']) }}">Installation</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'configuration']) }}">Configuration</a></li>
+    <li class="collection-header"><h4>Настройка</h4></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'installation']) }}">Установка</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'configuration']) }}">Конфигурация</a></li>
     <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'homestead']) }}">Homestead</a></li>
 
-    <li class="collection-header"><h4>Tutorials</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'quickstart']) }}">Basic Task List</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'quickstart-intermediate']) }}">Intermediate Task List</a></li>
+    <li class="collection-header"><h4>Учебники</h4></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'quickstart']) }}">Базовый список задач</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'quickstart-intermediate']) }}">Промежуточный список задач</a></li>
 
-    <li class="collection-header"><h4>The Basics</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'routing']) }}">Routing</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'middleware']) }}">Middleware</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'controllers']) }}">Controllers</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'requests']) }}">Requests</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'responses']) }}">Responses</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'views']) }}">Views</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'blade']) }}">Blade Templates</a></li>
+    <li class="collection-header"><h4>Основы</h4></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'routing']) }}">Маршрутизация</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'middleware']) }}">Посредники</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'controllers']) }}">Контроллеры</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'requests']) }}">Запросы</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'responses']) }}">Ответы</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'views']) }}">Шаблоны</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'blade']) }}">Шаблонизатор Blade</a></li>
 
-    <li class="collection-header"><h4>Architecture Foundations</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'lifecycle']) }}">Request Lifecycle</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'structure']) }}">Application Structure</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'providers']) }}">Service Providers</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'container']) }}">Service Container</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'facades']) }}">Facades</a></li>
+    <li class="collection-header"><h4>Архитектура фреймворка</h4></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'lifecycle']) }}">Жизненный цикл запроса</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'structure']) }}">Структура приложения</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'providers']) }}">Поставщики услуг</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'container']) }}">Контейнеры услуг</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'facades']) }}">Фасады</a></li>
 
-    <li class="collection-header"><h4>Services</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'authentication']) }}">Authentication</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'authorization']) }}">Authorization</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'artisan']) }}">Artisan Console</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'billing']) }}">Billing</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'cache']) }}">Cache</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'collections']) }}">Collections</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'elixir']) }}">Elixir</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'encryption']) }}">Encryption</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'errors']) }}">Errors & Logging</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'events']) }}">Events</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'filesystem']) }}">Filesystem / Cloud Storage</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'hashing']) }}">Hashing</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'helpers']) }}">Helpers</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'localization']) }}">Localization</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'mail']) }}">Mail</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'packages']) }}">Package Development</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'pagination']) }}">Pagination</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'queues']) }}">Queues</a></li>
+    <li class="collection-header"><h4>Сервисы</h4></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'authentication']) }}">Аутентификация</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'authorization']) }}">Авторизация</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'artisan']) }}">Консоль Artisan</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'billing']) }}">Биллинг</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'cache']) }}">Кэш</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'collections']) }}">Коллекции</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'elixir']) }}">Эликсир</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'encryption']) }}">Шифрование</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'errors']) }}">Ошибки и логирование</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'events']) }}">Мероприятия</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'filesystem']) }}">Файловая система / Облачные хранилища</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'hashing']) }}">Хэширование</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'helpers']) }}">Помощники</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'localization']) }}">Локализация</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'mail']) }}">Почта</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'packages']) }}">Разработка пакетов</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'pagination']) }}">Нумерация страниц</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'queues']) }}">Очереди</a></li>
     <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'redis']) }}">Redis</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'session']) }}">Session</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'envoy']) }}">SSH Tasks</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'scheduling']) }}">Task Scheduling</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'testing']) }}">Testing</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'validation']) }}">Validation</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'session']) }}">Сессии</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'envoy']) }}">Задачи SSH</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'scheduling']) }}">Планировщик задач</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'testing']) }}">Тестирование</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'validation']) }}">Проверка</a></li>
 
-    <li class="collection-header"><h4>Database</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'database']) }}">Getting Started</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'queries']) }}">Query Builder</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'migrations']) }}">Migrations</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'seeding']) }}">Seeding</a></li>
+    <li class="collection-header"><h4>Базы данных</h4></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'database']) }}">Начало</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'queries']) }}">Конструктор запросов</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'migrations']) }}">Миграции</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'seeding']) }}">Сиды</a></li>
 
     <li class="collection-header"><h4>Eloquent ORM</h4></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent']) }}">Getting Started</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-relationships']) }}">Relationships</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-collections']) }}">Collections</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-mutators']) }}">Mutators</a></li>
-    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-serialization']) }}">Serialization</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent']) }}">Начало</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-relationships']) }}">Отношения</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-collections']) }}">Коллекции</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-mutators']) }}">Мутаторы</a></li>
+    <li class="collection-item"><a href="{{ route('docs', ['version'=>$version, 'page'=>'eloquent-serialization']) }}">Сериализация</a></li>
 </ul>

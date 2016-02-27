@@ -1,106 +1,106 @@
-# Authentication
+# Аутентификация
 
-- [Introduction](#introduction)
-    - [Database Considerations](#introduction-database-considerations)
-- [Authentication Quickstart](#authentication-quickstart)
-    - [Routing](#included-routing)
-    - [Views](#included-views)
-    - [Authenticating](#included-authenticating)
-    - [Retrieving The Authenticated User](#retrieving-the-authenticated-user)
-    - [Protecting Routes](#protecting-routes)
-    - [Authentication Throttling](#authentication-throttling)
-- [Manually Authenticating Users](#authenticating-users)
-    - [Remembering Users](#remembering-users)
-    - [Other Authentication Methods](#other-authentication-methods)
-- [HTTP Basic Authentication](#http-basic-authentication)
-    - [Stateless HTTP Basic Authentication](#stateless-http-basic-authentication)
-- [Resetting Passwords](#resetting-passwords)
-    - [Database Considerations](#resetting-database)
-    - [Routing](#resetting-routing)
-    - [Views](#resetting-views)
-    - [After Resetting Passwords](#after-resetting-passwords)
-    - [Customization](#password-customization)
-- [Social Authentication](https://github.com/laravel/socialite)
-- [Adding Custom Guards](#adding-custom-guards)
-- [Adding Custom User Providers](#adding-custom-user-providers)
-- [Events](#events)
+- [Введение](#introduction)
+    - [Обсуждение базы данных](#introduction-database-considerations)
+- [Быстрый старт](#authentication-quickstart)
+    - [Маршрутизация](#included-routing)
+    - [Шаблоны](#included-views)
+    - [Аутентификация](#included-authenticating)
+    - [Получение идентифицированного пользователя](#retrieving-the-authenticated-user)
+    - [Защита маршрутов](#protecting-routes)
+    - [Регулирование аутентификацией](#authentication-throttling)
+- [Ручная аутентификация пользователей](#authenticating-users)
+    - [Запоминание пользователей](#remembering-users)
+    - [Другие методы аутентификации](#other-authentication-methods)
+- [Базовая аутентификация HTTP](#http-basic-authentication)
+    - [Базовая аутентифицация Stateless HTTP](#stateless-http-basic-authentication)
+- [Сброс паролей](#resetting-passwords)
+    - [Настройка базы данных](#resetting-database)
+    - [Настройка маршрутизации](#resetting-routing)
+    - [Настройка шаблонов](#resetting-views)
+    - [Действия после сброса пароля](#after-resetting-passwords)
+    - [Настройка](#password-customization)
+- [Аутентификация через социальные сети](https://github.com/laravel/socialite)
+- [Добавление пользовательской защиты](#adding-custom-guards)
+- [Добавление другийх провайдеров пользователя](#adding-custom-user-providers)
+- [Мероприятия](#events)
 
 <a name="introduction"></a>
-## Introduction
+## Введение
 
-Laravel makes implementing authentication very simple. In fact, almost everything is configured for you out of the box. The authentication configuration file is located at `config/auth.php`, which contains several well documented options for tweaking the behavior of the authentication services.
+Laravel делает очень простую реализацию аутентификации. Почти все уже настроено и доступно "из коробки". Файл конфигурации находится в `config/auth.php`, который содержит документированные варианты тонкой настройки службы аутентификации.
 
-At its core, Laravel's authentication facilities are made up of "guards" and "providers". Guards define how users are authenticated for each request. For example, Laravel ships with a `session` guard which maintains state using session storage and cookies and a `token` guard, which authenticates users using a "API token" that is passed with each request.
+По своей сути, средства аутентификации Laravel состоят из "охранников" и "поставщиков". Охранники проверают подлинность каждого запроса пользователя. Например, Laravel защищает сессию, проверяя сохраняя и проверяя состояние куки сессии и токена пользователя, передаваемых с каждым запросом.
 
-Providers define how users are retrieved from your persistent storage. Laravel ships with support for retrieving users using Eloquent and the database query builder. However, you are free to define additional providers as needed for your application.
+Поставщики определяют, каким образом пользователи извлекаются из постоянного хранилища. Laravel поддерживает получение пользователей через Eloquent и конструктор запросов к базе данных. Тем не менее, при необходимости, Вы можете определить дополнительные провайдеры.
 
-Don't worry if this all sounds confusing now! Most applications will never need to modify the default authentication configuration.
+Не беспокойтест, если это вводит Вас в заблуждение! Большинству приложений не нужно изменять конфигурацию аутентификации, так как используются настройки по-умолчанию.
 
 <a name="introduction-database-considerations"></a>
-### Database Considerations
+### Обсуждение базы данных
 
-By default, Laravel includes an `App\User` [Eloquent model](/docs/{{version}}/eloquent) in your `app` directory. This model may be used with the default Eloquent authentication driver. If your application is not using Eloquent, you may use the `database` authentication driver which uses the Laravel query builder.
+По-умолчанию, Laravel включает в себя [модель Eloquent](/docs/{{version}}/eloquent) `App\User` в директории `app`. Эта модель может использоваться с базовым драйвером аутентификации Eloquent. Если Ваше приложение не использует Eloquent, Вы можете использовать драйвер аутентификации базы данных, использующий конструктор запросов Laravel.
 
-When building the database schema for the `App\User` model, make sure the password column is 60 characters in length.
+При построении модели `App\User` в базе данных убедитесь, что длина колонки пароля равна 60 символам.
 
-Also, you should verify that your `users` (or equivalent) table contains a nullable, string `remember_token` column of 100 characters. This column will be used to store a token for "remember me" sessions being maintained by your application. This can be done by using `$table->rememberToken();` in a migration.
+Так что, Вы должны убедиться, что Ваша таблица `users` (или эквивалент) содержит обнуляемую (`nullable`) колонку `remember_token` типа `string` длиной 100 символов. Этот столбец используется приложением для хранения значения при необходимости "запоминания" статуса аутентификации пользователя ("запромнить меня").
 
 <a name="authentication-quickstart"></a>
-## Authentication Quickstart
+## Быстрый старт
 
-Laravel ships with two authentication controllers out of the box, which are located in the `App\Http\Controllers\Auth` namespace. The `AuthController` handles new user registration and authentication, while the `PasswordController` contains the logic to help existing users reset their forgotten passwords. Each of these controllers uses a trait to include their necessary methods. For many applications, you will not need to modify these controllers at all.
+Из коробки Laravel содержит два контроллера, расположенных в пространстве имен `App\Http\Controllers\Auth`. `AuthController` обрабатывает регистрацию нового пользователя и аутентификацию в то время, как `PasswordController` содержит логику для восстановления паролей учетных записей. Для многих приложений эти контроллеры изменять не нужно.
 
 <a name="included-routing"></a>
-### Routing
+### Маршрутизация
 
-Laravel provides a quick way to scaffold all of the routes and views you need for authentication using one simple command:
+Laravel обеспечивает быстрое создание всех необходимых маршрутов, контроллеров и шаблонов, необходимых для управления аутентификацией. Это делается с помощью одной простой команды:
 
     php artisan make:auth
 
-This command should be used on fresh applications and will install registration and login views, as well as routes for all authentication end-points. A `HomeController` will also be generated, which serves post-login requests to your application's dashboard. However, you are free to customize or even remove this controller based on the needs of your application.
+Эту команду нужно использовать на новых приложениях с необходимостью регистрации и авторизации пользователей. Контроллер `HomeController` будет создан автоматически, в шаблонах которого имеется привязка к аутентификации пользователей. Вы можете изменить или удалить этот контроллер на свое усмотрение.
 
 <a name="included-views"></a>
-### Views
+### Шаблоны
 
-As mentioned in the previous section, the `php artisan make:auth` command will create all of the views you need for authentication and place them in the `resources/views/auth` directory.
+Как упоминалось в предыдущем разделе, команда `php artisan make:auth` автоматически создает необходимые шаблоны в папке `resources/views/auth`.
 
-The `make:auth` command will also create a `resources/views/layouts` directory containing a base layout for your application. All of these views use the Bootstrap CSS framework, but you are free to customize them however you wish.
+Команда `make:auth` также создаст папку `resources/views/layouts`, содержащую базовый макет для Вашего приложения. Все эти представления используют CSS фреймворк [Twitter Bootstrap](http://getbootstrap.com). При желании, Вы можете заменить его на другой.
 
 <a name="included-authenticating"></a>
-### Authenticating
+### Аутентификация
 
-Now that you have routes and views setup for the included authentication controllers, you are ready to register and authenticate new users for your application! You may simply access your application in a browser. The authentication controllers already contain the logic (via their traits) to authenticate existing users and store new users in the database.
+Теперь, когда у Вас есть маршруты и шаблоны настройки для внедрения контроллеров аутентификации, Вы готовы регистрировать и аутентифицировать новых пользователей! Можете проверить в браузере насколько это просто. Контроллеры аутентификации уже содержат логику (через трейты) для аутентификации существующих пользователей и сохранения новых в базе данных.
 
-#### Path Customization
+#### Настройка пути
 
-When a user is successfully authenticated, they will be redirected to the `/` URI. You can customize the post-authentication redirect location by defining a `redirectTo` property on the `AuthController`:
+Когда пользователь успешно аутентифицирован, он будет перенаправлен на страницу `/home`. Вы можете изменить адрес перенаправления после аутентификации путем определения свойства `redirectTo` в `AuthController`:
 
     protected $redirectTo = '/home';
 
-When a user is not successfully authenticated, they will be redirected back to the login form location automatically.
+В случае ошибки авторизации, пользователь будет перенаправлен на страницу входа.
 
-#### Guard Customization
+#### Настройка защиты
 
-You may also customize the "guard" that is used to authenticate users. To get started, define a `guard` property on your `AuthController`. The value of this property should correspond with one of the guards configured in your `auth.php` configuration file:
+Вы также можете настроить защиту, используемую при аутентификации. Для начала, определите свойство `guard` в контроллере `AuthController`. Значение этого свойства должно соответствовать одному из доступных средств, настроенных в файле конфигурации `auth.php`:
 
     protected $guard = 'admin';
 
-#### Validation / Storage Customization
+#### Проверка / Настройка хранения
 
-To modify the form fields that are required when a new user registers with your application, or to customize how new user records are inserted into your database, you may modify the `AuthController` class. This class is responsible for validating and creating new users of your application.
+Для изменения полей формы и/или колонок в таблице, необходимых для регистрации нового пользователя, Вы можете изменить класс `AuthController`. Этот класс отвечает за проверку и создание пользователей.
 
-The `validator` method of the `AuthController` contains the validation rules for new users of the application. You are free to modify this method as you wish.
+Метод `validator` контроллера `AuthController` содержит правила проверки новых пользователей. Вы можете изменять этот метод.
 
-The `create` method of the `AuthController` is responsible for creating new `App\User` records in your database using the [Eloquent ORM](/docs/{{version}}/eloquent). You are free to modify this method according to the needs of your database.
+Метод `create` контроллера `AuthController` отвечает за созание новых записей `App\User` в базе данных при помощи [Eloquent ORM](/docs/{{version}}/eloquent). Вы можете изменить этот метод в соответствии с Вашими потребностями.
 
 <a name="retrieving-the-authenticated-user"></a>
-### Retrieving The Authenticated User
+### Получение идентифицированного пользователя
 
-You may access the authenticated user via the `Auth` facade:
+Получить доступ к аутентифицированному пользователю можно используя фасад `Auth`:
 
     $user = Auth::user();
 
-Alternatively, once a user is authenticated, you may access the authenticated user via an `Illuminate\Http\Request` instance. Remember, type-hinted classes will automatically be injected into your controller methods:
+В качестве альтернативы, как только пользователь пройдет проверку подлинности, Вы можете получить доступ к введенным пользователем данным через `Illuminate\Http\Request`. Помните, что классы будут автоматически внедрены в методы контроллера:
 
     <?php
 
@@ -124,20 +124,20 @@ Alternatively, once a user is authenticated, you may access the authenticated us
         }
     }
 
-#### Determining If The Current User Is Authenticated
+#### Проверка статуса авторизации пользователя
 
-To determine if the user is already logged into your application, you may use the `check` method on the `Auth` facade, which will return `true` if the user is authenticated:
+Для проверки статуса авторизации необходимо использовать метод `check` фасада `Auth`. Если пользователь авторизован, метод вернет `true`:
 
     if (Auth::check()) {
         // The user is logged in...
     }
 
-However, you may use middleware to verify that the user is authenticated before allowing the user access to certain routes / controllers. To learn more about this, check out the documentation on [protecting routes](/docs/{{version}}/authentication#protecting-routes).
+Вы можете использовать посредников, чтобы убедиться в аутентифицированности пользователя прежде, чем разрешить доступ к определенным маршрутам и/или контроллерам. Узнать больше Вы можете в документации о [защите маршрутов](/docs/{{version}}/authentication#protecting-routes).
 
 <a name="protecting-routes"></a>
-### Protecting Routes
+### Защита маршрутов
 
-[Route middleware](/docs/{{version}}/middleware) can be used to allow only authenticated users to access a given route. Laravel ships with the `auth` middleware, which is defined in `app\Http\Middleware\Authenticate.php`. All you need to do is attach the middleware to a route definition:
+[Маршруты посредников](/docs/{{version}}/middleware) могут использоваться для проверки аутентификации пользователя перед разрешением доступа к маршруту. Laravel поставляется с посредником `auth`, определенного в `app\Http\Middleware\Authenticate.php`. Все, что Вам нужно сделать, это указать имя посредника в маршруте:
 
     // Using A Route Closure...
 
@@ -152,26 +152,26 @@ However, you may use middleware to verify that the user is authenticated before 
         'uses' => 'ProfileController@show'
     ]);
 
-Of course, if you are using [controller classes](/docs/{{version}}/controllers), you may call the `middleware` method from the controller's constructor instead of attaching it in the route definition directly:
+Конечно, если Вы используете [классы контроллера](/docs/{{version}}/controllers), можно вызвать метод `middleware` прямо из контроллера, а не при определении маршрута:
 
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-#### Specifying A Guard
+#### Специфика защиты
 
-When attaching the `auth` middleware to a route, you may also specify which guard should be used to perform the authentication:
+При указании посредника `auth` в маршруте, Вы также можете указать какую защиту использовать при выполнении аутентификации:
 
     Route::get('profile', [
         'middleware' => 'auth:api',
         'uses' => 'ProfileController@show'
     ]);
 
-The guard specified should correspond to one of the keys in the `guards` array of your `auth.php` configuration file.
+Защитник должен соответствовать одному из перечисленных в массиве `guards` конфигурационного файла `auth.php`.
 
 <a name="authentication-throttling"></a>
-### Authentication Throttling
+### Регулирование аутентификацией
 
 If you are using Laravel's built-in `AuthController` class, the `Illuminate\Foundation\Auth\ThrottlesLogins` trait may be used to throttle login attempts to your application. By default, the user will not be able to login for one minute if they fail to provide the correct credentials after several attempts. The throttling is unique to the user's username / e-mail address and their IP address:
 
@@ -193,7 +193,7 @@ If you are using Laravel's built-in `AuthController` class, the `Illuminate\Foun
     }
 
 <a name="authenticating-users"></a>
-## Manually Authenticating Users
+## Ручная аутентификация пользователей
 
 Of course, you are not required to use the authentication controllers included with Laravel. If you choose to remove these controllers, you will need to manage user authentication using the Laravel authentication classes directly. Don't worry, it's a cinch!
 
@@ -254,7 +254,7 @@ To log users out of your application, you may use the `logout` method on the `Au
     Auth::logout();
 
 <a name="remembering-users"></a>
-### Remembering Users
+### Запоминание пользователей
 
 If you would like to provide "remember me" functionality in your application, you may pass a boolean value as the second argument to the `attempt` method, which will keep the user authenticated indefinitely, or until they manually logout. Of course, your `users` table must include the string `remember_token` column, which will be used to store the "remember me" token.
 
@@ -269,7 +269,7 @@ If you are "remembering" users, you may use the `viaRemember` method to determin
     }
 
 <a name="other-authentication-methods"></a>
-### Other Authentication Methods
+### Другие методы аутентификации
 
 #### Authenticate A User Instance
 
@@ -310,7 +310,7 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
 <a name="stateless-http-basic-authentication"></a>
-### Stateless HTTP Basic Authentication
+### Базовая аутентифицация Stateless HTTP
 
 You may also use HTTP Basic Authentication without setting a user identifier cookie in the session, which is particularly useful for API authentication. To do so, [define a middleware](/docs/{{version}}/middleware) that calls the `onceBasic` method. If no response is returned by the `onceBasic` method, the request may be passed further into the application:
 
@@ -344,10 +344,10 @@ Next, [register the route middleware](/docs/{{version}}/middleware#registering-m
     }]);
 
 <a name="resetting-passwords"></a>
-## Resetting Passwords
+## Сброс паролей
 
 <a name="resetting-database"></a>
-### Database Considerations
+### Настройка базы данных
 
 Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
 
@@ -360,19 +360,19 @@ Next, a table must be created to store the password reset tokens. The migration 
     php artisan migrate
 
 <a name="resetting-routing"></a>
-### Routing
+### Настройка маршрутизации
 
 Laravel includes an `Auth\PasswordController` that contains the logic necessary to reset user passwords. All of the routes needed to perform password resets may be generated using the `make:auth` Artisan command:
 
     php artisan make:auth
 
 <a name="resetting-views"></a>
-### Views
+### Настройка шаблонов
 
 Again, Laravel will generate all of the necessary views for password reset when the `make:auth` command is executed. These views are placed in `resources/views/auth/passwords`. You are free to customize them as needed for your application.
 
 <a name="after-resetting-passwords"></a>
-### After Resetting Passwords
+### Действия после сброса пароля
 
 Once you have defined the routes and views to reset your user's passwords, you may simply access the route in your browser at `/password/reset`. The `PasswordController` included with the framework already includes the logic to send the password reset link e-mails as well as update passwords in the database.
 
@@ -383,7 +383,7 @@ After the password is reset, the user will automatically be logged into the appl
 > **Note:** By default, password reset tokens expire after one hour. You may change this via the password reset `expire` option in your `config/auth.php` file.
 
 <a name="password-customization"></a>
-### Customization
+### Настройка
 
 #### Authentication Guard Customization
 
@@ -408,7 +408,7 @@ In your `auth.php` configuration file, you may configure multiple password "brok
     protected $broker = 'admins';
 
 <a name="adding-custom-guards"></a>
-## Adding Custom Guards
+## Добавление пользовательской защиты
 
 You may define your own authentication guards using the `extend` method on the `Auth` facade. You should place this call to `provider` within a [service provider](/docs/{{version}}/providers):
 
@@ -459,7 +459,7 @@ Once your custom guard has been defined, you may use the guard in your `guards` 
     ],
 
 <a name="adding-custom-user-providers"></a>
-## Adding Custom User Providers
+## Добавление другийх провайдеров пользователя
 
 If you are not using a traditional relational database to store your users, you will need to extend Laravel with your own authentication user provider. We will use the `provider` method on the `Auth` facade to define a custom user provider. You should place this call to `provider` within a [service provider](/docs/{{version}}/providers):
 
@@ -565,7 +565,7 @@ Now that we have explored each of the methods on the `UserProvider`, let's take 
 This interface is simple. The `getAuthIdentifier` method should return the "primary key" of the user. In a MySQL back-end, again, this would be the auto-incrementing primary key. The `getAuthPassword` should return the user's hashed password. This interface allows the authentication system to work with any User class, regardless of what ORM or storage abstraction layer you are using. By default, Laravel includes a `User` class in the `app` directory which implements this interface, so you may consult this class for an implementation example.
 
 <a name="events"></a>
-## Events
+## Мероприятия
 
 Laravel raises a variety of [events](/docs/{{version}}/events) during the authentication process. You may attach listeners to these events in your `EventServiceProvider`:
 
