@@ -17,4 +17,11 @@ return [
      * Sitemap default priority
      */
     'sitemap_priority' => 0.8,
+    /*
+     * Translated
+     */
+    'translated'       => [
+        'count' => 1,
+        'of'    => 58
+    ]
 ];
