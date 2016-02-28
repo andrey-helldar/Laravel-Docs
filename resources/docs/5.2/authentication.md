@@ -22,8 +22,8 @@
     - [Настройка](#password-customization)
 - [Аутентификация через социальные сети](https://github.com/laravel/socialite)
 - [Добавление пользовательской защиты](#adding-custom-guards)
-- [Добавление другийх провайдеров пользователя](#adding-custom-user-providers)
-- [Мероприятия](#events)
+- [Добавление других провайдеров пользователя](#adding-custom-user-providers)
+- [События](#events)
 
 <a name="introduction"></a>
 ## Введение
@@ -173,7 +173,7 @@ Laravel обеспечивает быстрое создание всех нео
 <a name="authentication-throttling"></a>
 ### Регулирование аутентификацией
 
-If you are using Laravel's built-in `AuthController` class, the `Illuminate\Foundation\Auth\ThrottlesLogins` trait may be used to throttle login attempts to your application. By default, the user will not be able to login for one minute if they fail to provide the correct credentials after several attempts. The throttling is unique to the user's username / e-mail address and their IP address:
+Если Вы используете встроенный в Laravel класс `AuthController`, трейт `Illuminate\Foundation\Auth\ThrottlesLogins` может быть использован для контроля попытками входа. По-умолчанию, пользователь не сможет авторизоваться в течение одной минуты, если учетные данные были неверно введены несколько раз. Контроль входа уникален для логина / email / IP-адреса пользователя:
 
     <?php
 
@@ -195,9 +195,9 @@ If you are using Laravel's built-in `AuthController` class, the `Illuminate\Foun
 <a name="authenticating-users"></a>
 ## Ручная аутентификация пользователей
 
-Of course, you are not required to use the authentication controllers included with Laravel. If you choose to remove these controllers, you will need to manage user authentication using the Laravel authentication classes directly. Don't worry, it's a cinch!
+Конечно, Вы не обязаны использовать контроллеры аутентификации, включенных в Laravel. Если Вы решили удалить эти контроллеры, для управления аутентификацией пользователей Вам нужно будет использовать классы непосредственно Laravel. Не волнуйтесь, это не сложно!
 
-We will access Laravel's authentication services via the `Auth` [facade](/docs/{{version}}/facades), so we'll need to make sure to import the `Auth` facade at the top of the class. Next, let's check out the `attempt` method:
+Для получения доступа к сервисам аутентификации Laravel, [фасад](/docs/{{version}}/facades) `Auth` должен быть импортирован в верхней части класса. Затем проверьте метод `attempt`:
 
     <?php
 
@@ -221,48 +221,48 @@ We will access Laravel's authentication services via the `Auth` [facade](/docs/{
         }
     }
 
-The `attempt` method accepts an array of key / value pairs as its first argument. The values in the array will be used to find the user in your database table. So, in the example above, the user will be retrieved by the value of the `email` column. If the user is found, the hashed password stored in the database will be compared with the hashed `password` value passed to the method via the array. If the two hashed passwords match an authenticated session will be started for the user.
+Метод `attempt` принимает массив пар ключей и значений в качестве первого аргумента. Значения в массиве будут использоваться, чтобы найти пользователя в таблице базы данных. Таким образом, в приведенном выше примере, пользователь будет извлечен по значению из колонки `email`. Если пользователь найден, произойдет сравнение хэшированного пароля из базы данных с захэшированным паролем, введенным пользователем. Если два хэша совпадут, сессия пользователя будет считаться авторизованной.
 
-The `attempt` method will return `true` if authentication was successful. Otherwise, `false` will be returned.
+Если пользователь успешно аутентифицирован, метод `attempt` вернет `true`, иначе - `false`.
 
-The `intended` method on the redirector will redirect the user to the URL they were attempting to access before being caught by the authentication filter. A fallback URI may be given to this method in case the intended destination is not available.
+Метод `intended` будет перенаправлять пользователя на URL, к которому пользователь пытается получить доступ. Можно указать резервный URL, если основной недоступен.
 
-#### Specifying Additional Conditions
+#### Дополнительные условия
 
-If you wish, you also may add extra conditions to the authentication query in addition to the user's e-mail and password. For example, we may verify that user is marked as "active":
+При желании, Вы также можете добавить дополнительные условия при аутентификации помимо email и пароля. Например, мы можем проверить помечен ли пользователь как "активный":
 
     if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1])) {
         // The user is active, not suspended, and exists.
     }
 
-> **Note:** In these examples, `email` is not a required option, it is merely used as an example. You should use whatever column name corresponds to a "username" in your database.
+> **Примечание:** В этих примерах `email` является необязательной опцией, используемой в качестве примера. Вы должны использовать любую колонку, отвечающую за логин пользователя в Вашей базе данных.
 
-#### Accessing Specific Guard Instances
+#### Защита доступа к определенным экземплярам
 
-You may specify which guard instance you would like to utilize using the `guard` method on the `Auth` facade. This allows you to manage authentication for separate parts of your application using entirely separate authenticatable models or user tables.
+Вы можете указать какого бы защитника хотите использовать с помощью метода `guard` в фасаде `Auth`. Это позволит управлять проверкой подлинности для отдельных частей приложения с использованием совершенно разных моделей или таблиц пользователей.
 
-The guard name passed to the `guard` method should correspond to one of the guards configured in your `auth.php` configuration file:
+Имя защитника передается в метод `guard`, который должен соответствовать одному из настроенных в конфигурационном файле `auth.php`:
 
     if (Auth::guard('admin')->attempt($credentials)) {
         //
     }
 
-#### Logging Out
+#### Выход из системы
 
-To log users out of your application, you may use the `logout` method on the `Auth` facade. This will clear the authentication information in the user's session:
+Для отмены регистрации пользователя используйте метод `logout` фасада `Auth`:
 
     Auth::logout();
 
 <a name="remembering-users"></a>
 ### Запоминание пользователей
 
-If you would like to provide "remember me" functionality in your application, you may pass a boolean value as the second argument to the `attempt` method, which will keep the user authenticated indefinitely, or until they manually logout. Of course, your `users` table must include the string `remember_token` column, which will be used to store the "remember me" token.
+Для реализации функционала "запомнить меня", Вы можете передать логическое значение в качестве аргумента в метод `attempt`, который "запомнит" пользователя на неопределенный срок, либо до выхода из системы вручную. Таблица `users` должна содержать столбец `remember_token` для хранения маркера авторизации.
 
     if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
         // The user is being remembered...
     }
 
-If you are "remembering" users, you may use the `viaRemember` method to determine if the user was authenticated using the "remember me" cookie:
+Если Вы "запоминаете" пользователей, то можете использовать метод `viaRemember` для проверки кук на наличие маркера "запомнить меня":
 
     if (Auth::viaRemember()) {
         //
@@ -271,40 +271,40 @@ If you are "remembering" users, you may use the `viaRemember` method to determin
 <a name="other-authentication-methods"></a>
 ### Другие методы аутентификации
 
-#### Authenticate A User Instance
+#### Аутентификация пользователя
 
-If you need to log an existing user instance into your application, you may call the `login` method with the user instance. The given object must be an implementation of the `Illuminate\Contracts\Auth\Authenticatable` [contract](/docs/{{version}}/contracts). Of course, the `App\User` model included with Laravel already implements this interface:
+При необходимости ручной авторизации пользователя, Вы можете вызвать метод `login` с указанием логина. Данный объект реализуется из [контрактов](/docs/{{version}}/contracts) `Illuminate\Contracts\Auth\Authenticatable`. Конечно, модель `App\User` включена в Laravel и реализует эту возможность:
 
     Auth::login($user);
 
-#### Authenticate A User By ID
+#### Аутентификация пользователя по ID
 
-To log a user into the application by their ID, you may use the `loginUsingId` method. This method simply accepts the primary key of the user you wish to authenticate:
+Для аутентификации пользователя по идентификатору (`ID`), нужно использовать метод `loginUsingId`. Этот метод принимает первичный ключ пользователя:
 
     Auth::loginUsingId(1);
 
-#### Authenticate A User Once
+#### Аутентификация пользователя после того, как
 
-You may use the `once` method to log a user into the application for a single request. No sessions or cookies will be utilized, which may be helpful when building a stateless API. The `once` method has the same signature as the `attempt` method:
+Вы можете использовать метод `once` для аутентификации пользователя в приложении. Сессии или куки не будут использоваться. Метод `once` имеет ту же подпись, что и метод `attempt`:
 
     if (Auth::once($credentials)) {
         //
     }
 
 <a name="http-basic-authentication"></a>
-## HTTP Basic Authentication
+## Простая аутентификация HTTP
 
-[HTTP Basic Authentication](http://en.wikipedia.org/wiki/Basic_access_authentication) provides a quick way to authenticate users of your application without setting up a dedicated "login" page. To get started, attach the `auth.basic` [middleware](/docs/{{version}}/middleware) to your route. The `auth.basic` middleware is included with the Laravel framework, so you do not need to define it:
+[Базовая аутентификация HTTP](http://en.wikipedia.org/wiki/Basic_access_authentication) обеспечивает быструю аутентификацию пользователя Вашего приложения без создания специальной страницы входа. Для начала, укажите [посредника](/docs/{{version}}/middleware) `auth.basic` в маршруте. Посредник `auth.basic` входит в состав фреймворка Laravel, так что его можно использовать сразу:
 
     Route::get('profile', ['middleware' => 'auth.basic', function() {
         // Only authenticated users may enter...
     }]);
 
-Once the middleware has been attached to the route, you will automatically be prompted for credentials when accessing the route in your browser. By default, the `auth.basic` middleware will use the `email` column on the user record as the "username".
+После того, как посредник прикреплен к маршруту, автоматически будет предложено ввести учетные данные при получении доступа к маршруту в браузере. По-умолчанию, посредник `auth.basic` использует колонку `email` в качестве логина.
 
-#### A Note On FastCGI
+#### Обратите внимание на FastCGI
 
-If you are using PHP FastCGI, HTTP Basic authentication may not work correctly out of the box. The following lines should be added to your `.htaccess` file:
+Если Вы используете PHP FastCGI, простая аутентификация HTTP может работать некорректно "из коробки". Вам необходимо добавить следующие строки в файл `.htaccess`:
 
     RewriteCond %{HTTP:Authorization} ^(.+)$
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -312,7 +312,7 @@ If you are using PHP FastCGI, HTTP Basic authentication may not work correctly o
 <a name="stateless-http-basic-authentication"></a>
 ### Базовая аутентифицация Stateless HTTP
 
-You may also use HTTP Basic Authentication without setting a user identifier cookie in the session, which is particularly useful for API authentication. To do so, [define a middleware](/docs/{{version}}/middleware) that calls the `onceBasic` method. If no response is returned by the `onceBasic` method, the request may be passed further into the application:
+Также можно использовать простую аутентификацию HTTP без записи идентификатора пользователя в куки сессии, что особенно полезно для аутентификации в API. Для этого определяют [посредника](/docs/{{version}}/middleware), вызывающего метод `onceBasic`. Если ответ метода не возвращается (`false`), то запрос будет передан дальше:
 
     <?php
 
@@ -337,7 +337,7 @@ You may also use HTTP Basic Authentication without setting a user identifier coo
 
     }
 
-Next, [register the route middleware](/docs/{{version}}/middleware#registering-middleware) and attach it to a route:
+Ждалее, [зарегистрируйте маршрут посредника](/docs/{{version}}/middleware#registering-middleware) и прикрепите его к маршруту:
 
     Route::get('api/user', ['middleware' => 'auth.basic.once', function() {
         // Only authenticated users may enter...
@@ -349,45 +349,44 @@ Next, [register the route middleware](/docs/{{version}}/middleware#registering-m
 <a name="resetting-database"></a>
 ### Настройка базы данных
 
-Most web applications provide a way for users to reset their forgotten passwords. Rather than forcing you to re-implement this on each application, Laravel provides convenient methods for sending password reminders and performing password resets.
+Большинство приложений позволяют пользователям с легкостью восстанавливать забытые пароли. Вместо постоянной реализации этого механизма вручную, Laravel содержит эти методы "из коробки".
 
-To get started, verify that your `App\User` model implements the `Illuminate\Contracts\Auth\CanResetPassword` contract. Of course, the `App\User` model included with the framework already implements this interface, and uses the `Illuminate\Auth\Passwords\CanResetPassword` trait to include the methods needed to implement the interface.
+Для начала, проверьте модель `App\User` для реализации `Illuminate\Contracts\Auth\CanResetPassword`. Конечно, модель `App\User` уже поддерживается фреймворком, а также использует трейт `Illuminate\Auth\Passwords\CanResetPassword` для его реализации.
 
-#### Generating The Reset Token Table Migration
+#### Генерация тококена сброса в таблице миграции
 
-Next, a table must be created to store the password reset tokens. The migration for this table is included with Laravel out of the box, and resides in the `database/migrations` directory. So, all you need to do is migrate:
+Теперь необходимо создать таблицу для сброса паролей. Миграция для этой таблицы включена в Laravel "из коробки" и расположена в папке `database/migrations`. Так что, все что нужно сделать, это:
 
     php artisan migrate
 
 <a name="resetting-routing"></a>
 ### Настройка маршрутизации
 
-Laravel includes an `Auth\PasswordController` that contains the logic necessary to reset user passwords. All of the routes needed to perform password resets may be generated using the `make:auth` Artisan command:
+Контроллер `Auth\PasswordController` фреймворка содержит логику сброса паролей. Все необходимые маршруты могут быть созданы, выполнив одну команду:
 
     php artisan make:auth
 
 <a name="resetting-views"></a>
 ### Настройка шаблонов
 
-Again, Laravel will generate all of the necessary views for password reset when the `make:auth` command is executed. These views are placed in `resources/views/auth/passwords`. You are free to customize them as needed for your application.
+Опять же, Laravel создаст все необходимые шаблоны для сброса пароля, когда Вы выполните команду `make:auth`. Шаблоны будут размещены в `resources/views/auth/passwords`. Вы можете изменить их при желании.
 
 <a name="after-resetting-passwords"></a>
 ### Действия после сброса пароля
+Определив маршруты и шаблоны сброса пароля, Вы можете перейти на страницу `/password/reset` в браузере. Контроллер `PasswordController` включен в фреймворк и содержит всю необходимую логику для сброса пароля путем отправки специально сгенерированной ссылки на email-адрес пользователя.
 
-Once you have defined the routes and views to reset your user's passwords, you may simply access the route in your browser at `/password/reset`. The `PasswordController` included with the framework already includes the logic to send the password reset link e-mails as well as update passwords in the database.
-
-After the password is reset, the user will automatically be logged into the application and redirected to `/home`. You can customize the post password reset redirect location by defining a `redirectTo` property on the `PasswordController`:
+После сброса пароля, пользователь будет перенаправлен на страницу `/home`. Вы можете изменить путь для переадресации изменив свойство `redirectTo` контроллера `PasswordController`:
 
     protected $redirectTo = '/dashboard';
 
-> **Note:** By default, password reset tokens expire after one hour. You may change this via the password reset `expire` option in your `config/auth.php` file.
+> **Примечание:** По-умолчанию, токен сброса пароля действует один час. Вы можете изменить продолжительность жизни токена, изменив опцию `expire` в конфигурационном файле `config/auth.php`.
 
 <a name="password-customization"></a>
 ### Настройка
 
-#### Authentication Guard Customization
+#### Настройка защиты аутентификации
 
-In your `auth.php` configuration file, you may configure multiple "guards", which may be used to define authentication behavior for multiple user tables. You can customize the included `PasswordController` to use the guard of your choice by adding a `$guard` property to the controller:
+В конфигурационном файле `auth.php` можно настроить несколько "защитников", которые могут использоваться для контроля аутентификации нескольких пользовательских таблиц (что-то вроде разделения на группы). Вы можете настроить контроллер `PasswordController` для использования конкретного защитника, указав свойство `$guard` в контроллере:
 
     /**
      * The authentication guard that should be used.
@@ -396,9 +395,9 @@ In your `auth.php` configuration file, you may configure multiple "guards", whic
      */
     protected $guard = 'admins';
 
-#### Password Broker Customization
+#### Настройка брокеров паролей
 
-In your `auth.php` configuration file, you may configure multiple password "brokers", which may be used to reset passwords on multiple user tables. You can customize the included `PasswordController` to use the broker of your choice by adding a `$broker` property to the controller:
+В конфигурационном файле `auth.php` можно настроить несколько "брокеров" паролей, которые могут использоваться для сброса паролей в нескольких таблицах пользователей. Вы можете настроить входящий в фреймворк `PasswordController` для использования "брокера", добавив к нему свойство `$broker`:
 
     /**
      * The password broker that should be used.
@@ -410,7 +409,7 @@ In your `auth.php` configuration file, you may configure multiple password "brok
 <a name="adding-custom-guards"></a>
 ## Добавление пользовательской защиты
 
-You may define your own authentication guards using the `extend` method on the `Auth` facade. You should place this call to `provider` within a [service provider](/docs/{{version}}/providers):
+Вы можете задать своих защитников аутентификации, используя метод `extend` фасада `Auth`. Для этого необходимо разместить вызов `поставщика` (`provider`) в [поставщика услуг](/docs/{{version}}/providers):
 
     <?php
 
@@ -447,9 +446,9 @@ You may define your own authentication guards using the `extend` method on the `
         }
     }
 
-As you can see in the example above, the callback passed to the `extend` method should return an implementation of `Illuminate\Contracts\Auth\Guard`. This interface contains a few methods you will need to implement to define a custom guard.
+Как Вы можете видеть в приведенном выше примере, обратный вызов передается методом `extend`, возвращающим `Illuminate\Contracts\Auth\Guard`. Этот интерфейс содержит несколько методов, нуобходимых для реализации определения "защитника".
 
-Once your custom guard has been defined, you may use the guard in your `guards` configuration:
+После того, как "защитник" определен, Вы можете определить его в конфигурации `guards`:
 
     'guards' => [
         'api' => [
@@ -461,7 +460,7 @@ Once your custom guard has been defined, you may use the guard in your `guards` 
 <a name="adding-custom-user-providers"></a>
 ## Добавление другийх провайдеров пользователя
 
-If you are not using a traditional relational database to store your users, you will need to extend Laravel with your own authentication user provider. We will use the `provider` method on the `Auth` facade to define a custom user provider. You should place this call to `provider` within a [service provider](/docs/{{version}}/providers):
+Если Вы не используете традиционную реляционную базу данных для хранения пользователей, то Вам необходимо расширить функциональность Laravel Вашим поставщиком для проверки подлинности пользователя. Мы будем использовать метод `provider` фасада `Auth` для определения пользовательского поставщика. Необходимо поместить вызов `поставщика` в [поставщика услуг](/docs/{{version}}/providers):
 
     <?php
 
@@ -497,7 +496,7 @@ If you are not using a traditional relational database to store your users, you 
         }
     }
 
-After you have registered the provider with the `provider` method, you may switch to the new user provider in your `config/auth.php` configuration file. First, define a `provider` that uses your new driver:
+После того, как Вы зарегистрировали поставщика услуг в методе `provider`, Вы можете переключиться на него в конфигурационном файле `config/auth.php`. Сперва определив какой драйвер он будет использовать:
 
     'providers' => [
         'users' => [
@@ -514,11 +513,11 @@ Then, you may use this provider in your `guards` configuration:
         ],
     ],
 
-### The User Provider Contract
+### Договор поставщика пользователя
 
-The `Illuminate\Contracts\Auth\UserProvider` implementations are only responsible for fetching a `Illuminate\Contracts\Auth\Authenticatable` implementation out of a persistent storage system, such as MySQL, Riak, etc. These two interfaces allow the Laravel authentication mechanisms to continue functioning regardless of how the user data is stored or what type of class is used to represent it.
+`Illuminate\Contracts\Auth\UserProvider` отвечает только за вызов `Illuminate\Contracts\Auth\Authenticatable` из постоянной системы хранения данных, таких как MySQL, Riak, etc. Эти два интерфейса позволяют механизмам фреймворка функционировать независимо от типа класса, используемого для его представления.
 
-Let's take a look at the `Illuminate\Contracts\Auth\UserProvider` contract:
+Взглянем на `Illuminate\Contracts\Auth\UserProvider`:
 
     <?php
 
@@ -534,19 +533,19 @@ Let's take a look at the `Illuminate\Contracts\Auth\UserProvider` contract:
 
     }
 
-The `retrieveById` function typically receives a key representing the user, such as an auto-incrementing ID from a MySQL database. The `Authenticatable` implementation matching the ID should be retrieved and returned by the method.
+Функция `retrieveById` получает пользователя по идентификатору, например, авто-инкрементный идентификатор из базы данных MySQL. `Authenticatable` должен соответствовать идентификатору и возвращаться методом.
 
-The `retrieveByToken` function retrieves a user by their unique `$identifier` and "remember me" `$token`, stored in a field `remember_token`. As with the previous method, the `Authenticatable` implementation should be returned.
+Функция `retrieveByToken` получает пользователя по уникальному идентификатору (`$identifier`) и токену "запомнить меня", записанному в поле `remember_token`. Как и в предыдущем методе, реализация `Authenticatable` должна быть возвращена.
 
-The `updateRememberToken` method updates the `$user` field `remember_token` with the new `$token`. The new token can be either a fresh token, assigned on a successful "remember me" login attempt, or a null when the user is logged out.
+Метод `updateRememberToken` обновляет поле `remember_token` новым токеном (`$token`) у пользователя `$user`. Новый токен будет получен при успешном входе с включенным маркером "запомнить меня" или когда пользователь выходит из системы.
 
-The `retrieveByCredentials` method receives the array of credentials passed to the `Auth::attempt` method when attempting to sign into an application. The method should then "query" the underlying persistent storage for the user matching those credentials. Typically, this method will run a query with a "where" condition on `$credentials['username']`. The method should then return an implementation of `UserInterface`. **This method should not attempt to do any password validation or authentication.**
+Метод `retrieveByCredentials` получает массив данных, передаваемых в метод `Auth::attempt` при попытке авторизации. Метод должен отправить запрос в хранилище данных, найдя в нем необходимого пользователя. Как правило, этот метод будет работать только указав `$credentials['username']` в блоке "where". Метод должен вернуть запись пользователя `UserInterface`. **Этот метод не должен проверять пароль пользователя или его аутентификацию.**
 
-The `validateCredentials` method should compare the given `$user` with the `$credentials` to authenticate the user. For example, this method might compare the `$user->getAuthPassword()` string to a `Hash::make` of `$credentials['password']`. This method should only validate the user's credentials and return a boolean.
+Метод `validateCredentials` должен сравнить значение `$user` с `$credentials` для аутентификации пользователя. Например, этот метод может сравнить строку `$user->getAuthPassword()` с `Hash::make` из `$credentials['password']`. Этот метод должен только подтвердить соответствие данных пользователя и вернуть логическое значение `true` в случае успеха, или `false` в случае отказа.
 
-### The Authenticatable Contract
+### Договор аутентификации
 
-Now that we have explored each of the methods on the `UserProvider`, let's take a look at the `Authenticatable` contract. Remember, the provider should return implementations of this interface from the `retrieveById` and `retrieveByCredentials` methods:
+Теперь, когда мы исследовали каждый из методов `UserProvider`, взглянем на договор `Authenticatable`. Запомните, что поставщик должен возвращать реализации этого интерфейса из методов `retrieveById` и `retrieveByCredentials`:
 
     <?php
 
@@ -562,12 +561,12 @@ Now that we have explored each of the methods on the `UserProvider`, let's take 
 
     }
 
-This interface is simple. The `getAuthIdentifier` method should return the "primary key" of the user. In a MySQL back-end, again, this would be the auto-incrementing primary key. The `getAuthPassword` should return the user's hashed password. This interface allows the authentication system to work with any User class, regardless of what ORM or storage abstraction layer you are using. By default, Laravel includes a `User` class in the `app` directory which implements this interface, so you may consult this class for an implementation example.
+Этот интерфейс прост. Метод `getAuthIdentifier` должен возвращать первичный ключ пользователя (`ID`). В бэкенде MySQL, опять же, этот ключ будет авто-инкрементным. `getAuthPassword` должен возвращать зашифрованный пароль пользователя (кэш пароля). Этот интерфейс позволяет системе аутентификации работать с любым классом пользователей независимо от того, какой ORM или уровень абстрактного хранилища Вы используете. По-умолчанию, фреймворк Laravel содержит класс `User` в папке `app`, так что Вы можете взять его за основу.
 
 <a name="events"></a>
-## Мероприятия
+## События
 
-Laravel raises a variety of [events](/docs/{{version}}/events) during the authentication process. You may attach listeners to these events in your `EventServiceProvider`:
+Laravel запускает множество [событий](/docs/{{version}}/events) во время процесса аутентификации. Вы можете прикрепить к ним "слушателей" в файле `EventServiceProvider`:
 
     /**
      * The event listener mappings for the application.

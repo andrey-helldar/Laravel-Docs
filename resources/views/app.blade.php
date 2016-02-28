@@ -55,7 +55,6 @@
                             <a href="https://github.com/andrey-helldar/LaraDoc" target="_blank">
                                 Переведено: {{ round((config('settings.translated.count') / config('settings.translated.of')) * 100, 0) }}%
                                 ({{ config('settings.translated.count') }} / {{ config('settings.translated.of') }})
-
                             </a>
                         </li>
                         {!! $navbarTop or '<li><a href="'.route('docs', ['version'=>config('settings.version')]).'">'.config('settings.version').'</a></li>' !!}

@@ -21,7 +21,7 @@ return [
      * Translated
      */
     'translated'       => [
-        'count' => 1,
+        'count' => 2,
         'of'    => 58
     ]
 ];
