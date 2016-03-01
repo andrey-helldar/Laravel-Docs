@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.21 on 2016-02-26.
+ * Generated for Laravel 5.2.22 on 2016-02-28.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -6394,6 +6394,17 @@ namespace {
          */
         public static function fullUrl(){
             return \Illuminate\Http\Request::fullUrl();
+        }
+        
+        /**
+         * Get the full URL for the request with the added query string parameters.
+         *
+         * @param array $query
+         * @return string 
+         * @static 
+         */
+        public static function fullUrlWithQuery($query){
+            return \Illuminate\Http\Request::fullUrlWithQuery($query);
         }
         
         /**

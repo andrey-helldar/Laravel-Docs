@@ -1,19 +1,19 @@
-# Installation
+# Установка
 
-- [Installation](#installation)
-    - [Server Requirements](#server-requirements)
+- [Установка](#installation)
+    - [Параметры сервера](#server-requirements)
     - [Installing Laravel](#installing-laravel)
-    - [Configuration](#configuration)
+    - [Конфигурация](#configuration)
 
 <a name="installation"></a>
-## Installation
+## Установка
 
 <a name="server-requirements"></a>
-### Server Requirements
+### Параметры сервера
 
-The Laravel framework has a few system requirements. Of course, all of these requirements are satisfied by the [Laravel Homestead](/docs/{{version}}/homestead) virtual machine, so it's highly recommended that you use Homestead as your local Laravel development environment.
+Фреймворк Laravel может работать с виртуальной машиной [Laravel Homestead](/docs/{{version}}/homestead) "из коробки", так что для разработки рекомендуется использовать именно ее.
 
-However, if you are not using Homestead, you will need to make sure your server meets the following requirements:
+Однако, если Вы не используете Homestead, убедитесь, что Ваш сервер отвечает следующим требованиям:
 
 <div class="content-list" markdown="1">
 - PHP >= 5.5.9
@@ -24,49 +24,52 @@ However, if you are not using Homestead, you will need to make sure your server 
 </div>
 
 <a name="installing-laravel"></a>
-### Installing Laravel
+### Установка Laravel
 
-Laravel utilizes [Composer](http://getcomposer.org) to manage its dependencies. So, before using Laravel, make sure you have Composer installed on your machine.
+Для управления зависимостями, Laravel использует менеджер зависимостей [Composer](http://getcomposer.org). Перед началом установки фреймворка убедитесь, что он установлен на Вашем компьютере.
 
-#### Via Laravel Installer
+#### С помощью Laravel Installer
 
-First, download the Laravel installer using Composer:
+Вначале скачайте установщик Laravel, используя [Composer](http://getcomposer.org):
 
     composer global require "laravel/installer"
 
-Make sure to place the `~/.composer/vendor/bin` directory (or the equivalent directory for your OS) in your PATH so the `laravel` executable can be located by your system.
+Укажите директорию `~/.composer/vendor/bin` (или эквивалентную в Вашей ОС) в глобальной переменной `PATH` для того, чтобы ОС могла использовать команду `laravel`.
 
-Once installed, the `laravel new` command will create a fresh Laravel installation in the directory you specify. For instance, `laravel new blog` will create a directory named `blog` containing a fresh Laravel installation with all of Laravel's dependencies already installed. This method of installation is much faster than installing via Composer:
+После установки, команда `laravel new` создаст "чистый" проект в директории, которую Вы укажете третьим параметром. Например, выполнив команду `laravel new blog`, установщик создаст папку `blog` и разместит в ней "чистый" исходник фреймворка с уже всеми установленными зависимостями. Этот метод намного быстрее, нежели установка через [Composer](http://getcomposer.org).
 
     laravel new blog
 
-#### Via Composer Create-Project
+#### С помощью Composer
 
-Alternatively, you may also install Laravel by issuing the Composer `create-project` command in your terminal:
+В качестве альтернативы, Вы можете установить фреймворк Laravel используя команду Композера `create-project` в командной строке:
 
     composer create-project --prefer-dist laravel/laravel blog
 
+Как и в примере выше, команда создаст папку `blog` с размещенным внутри готовым фреймворком.
+
 <a name="configuration"></a>
-### Configuration
+### Конфигурация
 
-All of the configuration files for the Laravel framework are stored in the `config` directory. Each option is documented, so feel free to look through the files and get familiar with the options available to you.
+Все файлы конфигурации фреймворка Laravel хранятся в папке `config`. Каждая опция документирована, так что не стесняйтесь просматривать файлы и искать доступные варианты настроек.
 
-#### Directory Permissions
+#### Права доступа
 
-After installing Laravel, you may need to configure some permissions. Directories within the `storage` and the `bootstrap/cache` directories should be writable by your web server or Laravel will not run. If you are using the [Homestead](/docs/{{version}}/homestead) virtual machine, these permissions should already be set.
+После установки Laravel, возможно, потребуется настроить некоторые разрешения. Папки `storage` и `bootstrap/cache` должны иметь права на запись от сервера, иначе фреймворк не будет работать. Если Вы используете виртуальную машину [Homestead](/docs/{{version}}/homestead), все необходимые права доступа будут назначены автоматически.
 
-#### Application Key
+#### Ключ приложения
 
-The next thing you should do after installing Laravel is set your application key to a random string. If you installed Laravel via Composer or the Laravel installer, this key has already been set for you by the `php artisan key:generate` command. Typically, this string should be 32 characters long. The key can be set in the `.env` environment file. If you have not renamed the `.env.example` file to `.env`, you should do that now. **If the application key is not set, your user sessions and other encrypted data will not be secure!**
+Следующее, что Вы должны сделать после установки Laravel - это присвоить случайный ключ Вашему приложению. Если Вы установили фреймворк с помощью композера или Laravel Installer, этот ключ будет установлен при выполнении команды `php artisan key:generate`. Как правило, строка ключа должна быть длиной не более 32 символов. Ключ должен быть указан в файле `.env` в корне директории. Если Вы еще не переименовали файл `.env.example` в `.env`, то должны сделать это сейчас (обычно, установщик Laravel и Composer автоматически переименовывают данный файл). ** Если ключ приложения не будет установлен, приложение не сможет защитить Ваши пользовательские сессии при передаче данных, например, пароля при авторизации.**
 
-#### Additional Configuration
 
-Laravel needs almost no other configuration out of the box. You are free to get started developing! However, you may wish to review the `config/app.php` file and its documentation. It contains several options such as `timezone` and `locale` that you may wish to change according to your application.
+#### Дополнительные настройки
 
-You may also want to configure a few additional components of Laravel, such as:
+Laravel практически не требует изменения конфигурации "из коробки". Вы уже можете начать разработку! Тем не менее, Вы можете посмотреть файл `config/app.php` и его документацию. Он содержит несколько опций, таких как `timezone` и `locale`, которые можете изменить на Ваше усмотрение.
 
-- [Cache](/docs/{{version}}/cache#configuration)
-- [Database](/docs/{{version}}/database#configuration)
-- [Session](/docs/{{version}}/session#configuration)
+Также Вы можете настроить несколько дополнительных компонентов Laravel, таких как:
 
-Once Laravel is installed, you should also [configure your local environment](/docs/{{version}}/configuration#environment-configuration).
+- [Кэш](/docs/{{version}}/cache#configuration)
+- [База данных](/docs/{{version}}/database#configuration)
+- [Сессии](/docs/{{version}}/session#configuration)
+
+После установки Laravel, Вы должны [настроить локальную среду](/docs/{{version}}/configuration#environment-configuration).
