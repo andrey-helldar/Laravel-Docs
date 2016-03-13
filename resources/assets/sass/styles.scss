@@ -253,6 +253,7 @@ blockquote {
     .row {
         a {
             transition: 0.2s;
+            color: $primary-color;
 
             &:hover {
                 color: $primary-color-dark !important;

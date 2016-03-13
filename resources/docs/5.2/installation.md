@@ -2,7 +2,7 @@
 
 - [Установка](#installation)
     - [Параметры сервера](#server-requirements)
-    - [Installing Laravel](#installing-laravel)
+    - [Установка Laravel](#installing-laravel)
     - [Конфигурация](#configuration)
 
 <a name="installation"></a>
